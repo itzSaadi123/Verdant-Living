@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Verdant — Premium indoor plants curated for modern living. Shop rare tropicals, easy-care greens, and statement specimens delivered to your door." />
+  <meta name="keywords" content="indoor plants, houseplants, tropical plants, plant shop, buy plants online, rare plants" />
+  <meta property="og:title" content="Verdant — Bring the Forest Home" />
+  <meta property="og:description" content="Premium indoor plants curated for modern living." />
+  <meta property="og:type" content="website" />
+  <title>Verdant — Bring the Forest Home</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ══ NAVIGATION ════════════════════════════════════════ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#" onclick="navigateTo('home')" aria-label="Verdant Home">
+      <span class="logo-leaf" aria-hidden="true">🌿</span> Verdant
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a class="nav-link active" data-page="home"    href="#" role="link">Home</a></li>
+      <li><a class="nav-link"        data-page="shop"    href="#" role="link">Shop</a></li>
+      <li><a class="nav-link"        data-page="about"   href="#" role="link">About</a></li>
+      <li><a class="nav-link"        data-page="contact" href="#" role="link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <!-- Dark Mode -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <div class="theme-toggle-knob" aria-hidden="true">☀️</div>
+      </button>
+
+      <!-- Wishlist -->
+      <button class="nav-btn-icon" onclick="showToast('❤️ ' + state.wishlist.length + ' items in wishlist')" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+
+      <!-- Cart -->
+      <button class="nav-btn-icon" onclick="openCart(); renderCartSidebar();" aria-label="Shopping cart" style="position:relative">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="badge cart-badge" style="display:none" aria-live="polite">0</span>
+      </button>
+
+      <button class="nav-mobile-toggle" id="mobileNavToggle" aria-label="Open menu" aria-expanded="false">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ MOBILE NAV ════════════════════════════════════════ -->
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Mobile menu">
+  <ul class="mobile-nav-links" role="list">
+    <li><a class="mobile-nav-link" data-page="home"    href="#">Home</a></li>
+    <li><a class="mobile-nav-link" data-page="shop"    href="#">Shop</a></li>
+    <li><a class="mobile-nav-link" data-page="about"   href="#">About</a></li>
+    <li><a class="mobile-nav-link" data-page="contact" href="#">Contact</a></li>
+  </ul>
+  <button class="btn btn-terra" style="width:100%;justify-content:center" onclick="navigateTo('shop')">Shop Plants →</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- HOME PAGE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<main>
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg-shapes" aria-hidden="true">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag">New arrivals for June</div>
+        <h1 class="display-xl">Bring the<br><em>Forest</em><br>Home</h1>
+        <p class="hero-desc">Rare tropicals, hardy favourites, and everything in between — expertly selected, sustainably sourced, and delivered to your door in perfect health.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="navigateTo('shop')">Shop Plants →</button>
+          <button class="btn btn-outline" style="border-color:rgba(245,240,232,.3);color:var(--ivory)" onclick="navigateTo('about')">Our Story</button>
+        </div>
+        <div class="hero-stats" aria-label="Statistics">
+          <div>
+            <div class="hero-stat-num">200+</div>
+            <div class="hero-stat-label">Varieties</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">12k</div>
+            <div class="hero-stat-label">Happy gardeners</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">98%</div>
+            <div class="hero-stat-label">Survival rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-plant-card">
+          <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400&q=80" 
+               alt="Monstera Deliciosa" 
+               style="width:100%;height:220px;object-fit:cover;border-radius:12px;display:block;margin-bottom:16px" />
+          <div class="hero-plant-name">Monstera Deliciosa</div>
+          <div class="hero-plant-price">from $48</div>
+        </div>
+        <div class="hero-floating-badge hero-floating-badge-2">🚚 Free shipping $75+</div>
+        <div class="hero-floating-badge hero-floating-badge-3">⭐ 12,000+ Happy Customers</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search -->
+  <section class="search-section" aria-label="Search plants">
+    <div class="container">
+      <div class="search-bar" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="homeSearch" placeholder="Search plants by name, type, care level…" aria-label="Search plants" />
+        <button class="btn btn-primary" id="homeSearchBtn" aria-label="Search">Search</button>
+      </div>
+      <div class="categories" role="list" aria-label="Categories">
+        <button class="category-pill home-cat-pill active" data-cat="all" role="listitem">🌿 All Plants</button>
+        <button class="category-pill home-cat-pill" data-cat="flowers" role="listitem">🌹 Flowers</button>
+        <button class="category-pill home-cat-pill" data-cat="tropical" role="listitem">🌺 Tropical</button>
+        <button class="category-pill home-cat-pill" data-cat="trailing" role="listitem">🍃 Trailing</button>
+        <button class="category-pill home-cat-pill" data-cat="statement" role="listitem">🌳 Statement</button>
+        <button class="category-pill home-cat-pill" data-cat="small" role="listitem">🪴 Small</button>
+        <button class="category-pill home-cat-pill" data-cat="rare" role="listitem">💎 Rare</button>
+        <button class="category-pill home-cat-pill" data-cat="succulent" role="listitem">🌵 Succulents</button>
+        <button class="category-pill home-cat-pill" data-cat="low-maintenance" role="listitem">😌 Easy Care</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section" aria-label="Featured plants">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Featured Collection</span>
+        <h2 class="display-lg">Our Favourite Greens</h2>
+        <p>Handpicked by our botanists for beauty, resilience, and that rare magic that transforms any room.</p>
+      </div>
+      <div class="products-grid" id="home-products" aria-label="Featured products">
+        <!-- Rendered by JS -->
+      </div>
+      <div style="text-align:center;margin-top:40px">
+        <button class="btn btn-outline" onclick="navigateTo('shop')">View All Plants →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Strip -->
+  <section class="featured-strip" aria-label="Why choose Verdant">
+    <div class="container">
+      <div class="featured-strip-grid">
+        <div class="featured-strip-item">
+          <div class="featured-strip-icon" aria-hidden="true">🌱</div>
+          <div>
+            <h4>Sustainably Sourced</h4>
+            <p>Ethical nurseries only, always</p>
+          </div>
+        </div>
+        <div class="featured-strip-item">
+          <div class="featured-strip-icon" aria-hidden="true">📦</div>
+          <div>
+            <h4>Safe Delivery</h4>
+            <p>Specialist plant packaging</p>
+          </div>
+        </div>
+        <div class="featured-strip-item">
+          <div class="featured-strip-icon" aria-hidden="true">🌿</div>
+          <div>
+            <h4>30-Day Guarantee</h4>
+            <p>Thrives or we replace it</p>
+          </div>
+        </div>
+        <div class="featured-strip-item">
+          <div class="featured-strip-icon" aria-hidden="true">🧑‍🌾</div>
+          <div>
+            <h4>Expert Support</h4>
+            <p>Real botanists on standby</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Strip -->
+  <section class="section" aria-label="About Verdant">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?w=600&q=80" 
+               alt="Lush indoor plants" 
+               style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:inherit;" />
+          <div class="about-badge-float top-right">
+            <div class="num">2018</div>
+            <div class="lbl">Est.</div>
+          </div>
+          <div class="about-badge-float bottom-left">
+            <div class="num">98%</div>
+            <div class="lbl">Happy plants</div>
+          </div>
+        </div>
+        <div class="about-content">
+          <span class="eyebrow">Our Philosophy</span>
+          <h2 class="display-lg">Plants aren't decoration. They're <em>companions.</em></h2>
+          <p>We started Verdant because we believed every home deserves living green — not plastic imitations, not mass-produced generics, but real, breathing, growing things that change with you.</p>
+          <div class="value-props">
+            <div class="value-prop">
+              <div class="value-prop-icon" aria-hidden="true">🌍</div>
+              <div>
+                <h4>Responsibly Grown</h4>
+                <p>Every plant comes from nurseries that prioritise soil health, fair labour, and chemical-free growing.</p>
+              </div>
+            </div>
+            <div class="value-prop">
+              <div class="value-prop-icon" aria-hidden="true">🔬</div>
+              <div>
+                <h4>Expert Matched</h4>
+                <p>Our botanists match plants to your light conditions, lifestyle, and skill level before you buy.</p>
+              </div>
+            </div>
+            <div class="value-prop">
+              <div class="value-prop-icon" aria-hidden="true">♻️</div>
+              <div>
+                <h4>Planet-First Packaging</h4>
+                <p>100% recyclable materials, compostable pots, and zero single-use plastic — always.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section" style="background:var(--bg-card)" aria-label="Customer reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">From Our Garden</span>
+        <h2 class="display-lg">12,000 Green Thumbs Agree</h2>
+      </div>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <p class="testimonial-quote">"Mere Monstera ne teen mahine mein double size le li! Jo care card aaya tha woh best guide thi jo maine kabhi parhi ho — absolutely loved it."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">🧑</div>
+            <div>
+              <div class="testimonial-name">Zara Siddiqui</div>
+              <div class="testimonial-role">Interior designer, Karachi</div>
+            </div>
+            <div class="stars" aria-label="5 stars" style="margin-left:auto">★★★★★</div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <p class="testimonial-quote">"I've killed every plant I've ever owned. Verdant's 'unkillable' selection changed that. My ZZ plant is thriving and I couldn't be prouder."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">👩</div>
+            <div>
+              <div class="testimonial-name">Ayesha Rehman</div>
+              <div class="testimonial-role">Teacher, Lahore</div>
+            </div>
+            <div class="stars" aria-label="5 stars" style="margin-left:auto">★★★★★</div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <p class="testimonial-quote">"The Pink Princess arrived in perfect condition, better than I expected for a rare plant. Beautifully packaged and the variegation is stunning."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">🧑‍🦱</div>
+            <div>
+              <div class="testimonial-name">Hassan Nawaz</div>
+              <div class="testimonial-role">Plant collector, Islamabad</div>
+            </div>
+            <div class="stars" aria-label="5 stars" style="margin-left:auto">★★★★★</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section" aria-label="Newsletter signup">
+    <div class="container-sm">
+      <div class="newsletter">
+        <span class="eyebrow">Join the Garden</span>
+        <h2 class="display-lg">Monthly plant wisdom, rare drops, and growing guides</h2>
+        <p>No spam, just green things. Unsubscribe whenever you like.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('🌱 Welcome to the Verdant community!')">
+          <input class="newsletter-input" type="email" placeholder="your@email.com" aria-label="Email address" required />
+          <button class="btn btn-terra" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SHOP PAGE                                             -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-shop" class="page">
+
+  <div class="page-hero" aria-label="Shop header">
+    <div class="container">
+      <h1 class="display-lg" style="color:var(--ivory)">The Plant Shop</h1>
+      <p>Over 200 varieties — from easy-care classics to rare collector's specimens.</p>
+    </div>
+  </div>
+
+  <section class="section-sm">
+    <div class="container">
+      <!-- Search + Sort bar -->
+      <div class="search-bar" role="search" style="max-width:100%;margin-bottom:20px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="width:20px;height:20px;color:var(--text-light);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="shopSearch" placeholder="Search by name, type, care level…" aria-label="Search plants" />
+        <select id="sortSelect" class="sort-select" aria-label="Sort by">
+          <option value="popular">Most Popular</option>
+          <option value="rating">Highest Rated</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+        </select>
+      </div>
+
+      <!-- Category Pills -->
+      <div class="categories" style="justify-content:flex-start;margin-bottom:32px" role="list" aria-label="Filter by category">
+        <button class="category-pill cat-pill active" data-cat="all">All</button>
+        <button class="category-pill cat-pill" data-cat="flowers">🌹 Flowers</button>
+        <button class="category-pill cat-pill" data-cat="tropical">🌺 Tropical</button>
+        <button class="category-pill cat-pill" data-cat="trailing">🍃 Trailing</button>
+        <button class="category-pill cat-pill" data-cat="statement">🌳 Statement</button>
+        <button class="category-pill cat-pill" data-cat="small">🪴 Small</button>
+        <button class="category-pill cat-pill" data-cat="rare">💎 Rare</button>
+        <button class="category-pill cat-pill" data-cat="succulent">🌵 Succulents</button>
+        <button class="category-pill cat-pill" data-cat="flowering">🤍 Flowering</button>
+        <button class="category-pill cat-pill" data-cat="low-maintenance">😌 Easy Care</button>
+      </div>
+
+      <div class="shop-layout">
+        <!-- Sidebar Filters -->
+        <aside class="shop-filters" aria-label="Filters">
+          <div class="filter-card">
+            <div class="filter-title">Price Range</div>
+            <div class="price-range">
+              <input type="range" class="price-slider" id="priceSlider" min="10" max="200" value="200" aria-label="Maximum price" />
+              <div class="price-labels">
+                <span>$10</span>
+                <span id="priceLabel">$200</span>
+              </div>
+            </div>
+          </div>
+          <div class="filter-card" style="margin-top:16px">
+            <div class="filter-title">Care Level</div>
+            <div class="filter-options">
+              <label class="filter-option">
+                <div class="filter-checkbox" aria-hidden="true"></div>
+                <span>🌱 Easy — set & forget</span>
+              </label>
+              <label class="filter-option">
+                <div class="filter-checkbox" aria-hidden="true"></div>
+                <span>🌿 Moderate — weekly check</span>
+              </label>
+              <label class="filter-option">
+                <div class="filter-checkbox" aria-hidden="true"></div>
+                <span>🌺 Expert — attentive care</span>
+              </label>
+            </div>
+          </div>
+          <div class="filter-card" style="margin-top:16px">
+            <div class="filter-title">Light Level</div>
+            <div class="filter-options">
+              <label class="filter-option">
+                <div class="filter-checkbox" aria-hidden="true"></div>
+                <span>☁️ Low light</span>
+              </label>
+              <label class="filter-option">
+                <div class="filter-checkbox" aria-hidden="true"></div>
+                <span>⛅ Indirect bright</span>
+              </label>
+              <label class="filter-option">
+                <div class="filter-checkbox" aria-hidden="true"></div>
+                <span>☀️ Full sun</span>
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:16px"
+            onclick="state.maxPrice=200;state.activeCategory='all';state.searchQuery='';renderShop()">
+            Clear Filters
+          </button>
+        </aside>
+
+        <!-- Products -->
+        <div>
+          <div class="shop-bar">
+            <p class="shop-count" id="shopCount" aria-live="polite">9 plants</p>
+          </div>
+          <div class="products-grid" id="shop-products" aria-label="Plant products"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /shop -->
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ABOUT PAGE                                            -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <div class="page-hero">
+    <div class="container">
+      <h1 class="display-lg" style="color:var(--ivory)">About Verdant</h1>
+      <p>We're botanists, designers, and plant-obsessives on a mission to green the world.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container-sm">
+      <div class="mission-strip">
+        <span class="eyebrow">Our Mission</span>
+        <h2 class="display-lg">Plants belong in every home, not just every magazine.</h2>
+        <p>We started Verdant in 2018 with a single greenhouse in Cornwall and a stubborn belief that beautiful, healthy plants shouldn't be a luxury. Today we partner with 40+ independent nurseries across the UK and Europe to bring you varieties you won't find in any garden centre.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm" style="background:var(--bg-card)">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">The People</span>
+        <h2 class="display-lg">Meet Our Team</h2>
+      </div>
+      <div class="team-grid">
+        <article class="team-card">
+          <div class="team-avatar" aria-hidden="true">🧑‍🌾</div>
+          <div class="team-name">Dr. Fiona Clarke</div>
+          <div class="team-role">Head Botanist</div>
+          <p class="team-bio">PhD in Tropical Plant Science from Kew Gardens. Fiona selects every species in our catalogue and writes our famous care guides.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar" aria-hidden="true">👨‍💻</div>
+          <div class="team-name">Sam Osei</div>
+          <div class="team-role">Co-Founder & CEO</div>
+          <p class="team-bio">Former conservation ecologist turned entrepreneur. Sam oversees our supplier partnerships and sustainability programme.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar" aria-hidden="true">👩‍🎨</div>
+          <div class="team-name">Yuki Tanaka</div>
+          <div class="team-role">Creative Director</div>
+          <p class="team-bio">Trained in Tokyo and London, Yuki designs our packaging, photography style, and the look you're experiencing right now.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">By the Numbers</span>
+        <h2 class="display-lg">Growing Together</h2>
+      </div>
+      <div class="featured-strip-grid" style="background:var(--forest);border-radius:var(--radius-lg);overflow:hidden">
+        <div class="featured-strip-item">
+          <div>
+            <div class="hero-stat-num">12k+</div>
+            <div style="font-size:.78rem;color:rgba(245,240,232,.5);text-transform:uppercase;letter-spacing:.08em">Happy customers</div>
+          </div>
+        </div>
+        <div class="featured-strip-item">
+          <div>
+            <div class="hero-stat-num">200+</div>
+            <div style="font-size:.78rem;color:rgba(245,240,232,.5);text-transform:uppercase;letter-spacing:.08em">Plant varieties</div>
+          </div>
+        </div>
+        <div class="featured-strip-item">
+          <div>
+            <div class="hero-stat-num">40+</div>
+            <div style="font-size:.78rem;color:rgba(245,240,232,.5);text-transform:uppercase;letter-spacing:.08em">Nursery partners</div>
+          </div>
+        </div>
+        <div class="featured-strip-item">
+          <div>
+            <div class="hero-stat-num">98%</div>
+            <div style="font-size:.78rem;color:rgba(245,240,232,.5);text-transform:uppercase;letter-spacing:.08em">Survival rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /about -->
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- CONTACT PAGE                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+
+  <div class="page-hero">
+    <div class="container">
+      <h1 class="display-lg" style="color:var(--ivory)">Get in Touch</h1>
+      <p>Questions about a plant? An order? Just want to chat greenery? We're here.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container-sm">
+      <div class="contact-grid">
+
+        <div class="contact-info-card">
+          <h2 class="display-md">We love hearing from plant people.</h2>
+          <p>Whether you're a first-time buyer or a seasoned collector, our team is here to help.</p>
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon" aria-hidden="true">📍</div>
+            <div>
+              <h4>Visit Us</h4>
+              <p>14 Ferndale Road<br>London, E8 4JR</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon" aria-hidden="true">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <p>hello@verdant.co</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon" aria-hidden="true">📞</div>
+            <div>
+              <h4>Phone</h4>
+              <p>+44 20 7946 0123</p>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon" aria-hidden="true">🕐</div>
+            <div>
+              <h4>Hours</h4>
+              <p>Mon–Fri: 9am – 6pm<br>Sat: 10am – 4pm</p>
+            </div>
+          </div>
+
+          <div class="social-links" style="margin-top:24px">
+            <a class="social-link" href="#" aria-label="Instagram">IG</a>
+            <a class="social-link" href="#" aria-label="Pinterest">Pi</a>
+            <a class="social-link" href="#" aria-label="TikTok">TK</a>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <h2 class="display-md">Send us a message</h2>
+          <p>We respond to all enquiries within one business day.</p>
+
+          <form id="contactForm" novalidate aria-label="Contact form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input class="form-control" id="firstName" type="text" placeholder="Fern" required aria-required="true" />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input class="form-control" id="lastName" type="text" placeholder="Greenwood" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input class="form-control" id="email" type="email" placeholder="you@example.com" required aria-required="true" />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select class="form-control" id="subject" aria-label="Subject">
+                <option value="">Select a topic…</option>
+                <option>Order enquiry</option>
+                <option>Plant care advice</option>
+                <option>Returns & replacements</option>
+                <option>Wholesale / trade</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="Tell us what's on your mind…" required aria-required="true"></textarea>
+            </div>
+            <button class="btn btn-terra" type="submit" style="width:100%;justify-content:center">Send Message 🌿</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div><!-- /contact -->
+</main>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-main">
+      <!-- Brand Column -->
+      <div class="footer-brand">
+        <div class="nav-logo" style="cursor:default;margin-bottom:14px;font-size:1.6rem"><span class="logo-leaf" aria-hidden="true">🌿</span> Verdant</div>
+        <p class="footer-tagline">Premium indoor plants, sustainably sourced and lovingly delivered to your door.</p>
+        <div class="footer-social">
+          <a class="social-link" href="#" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Pinterest">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.76 1.22-5.14 1.22-5.14s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.84 0 3.08-2.37 3.08-5.18 0-2.14-1.44-3.74-4.04-3.74-2.95 0-4.78 2.21-4.78 4.67 0 .85.25 1.44.64 1.9.18.21.2.3.14.54l-.23.92c-.07.3-.29.4-.53.29C5.43 14.4 4.5 12.61 4.5 10.55c0-3.56 3.01-7.84 8.97-7.84 4.8 0 7.96 3.48 7.96 7.22 0 4.95-2.75 8.64-6.81 8.64-1.36 0-2.64-.73-3.08-1.56l-.84 3.22c-.28 1.06-1.04 2.38-1.58 3.2.6.18 1.22.27 1.88.27 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Shop Column -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Shop</h4>
+        <ul class="footer-col-links">
+          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">All Plants</a></li>
+          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Tropical</a></li>
+          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Rare & Collectors</a></li>
+          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Easy Care</a></li>
+          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Succulents</a></li>
+        </ul>
+      </div>
+
+      <!-- Help Column -->
+      <div class="footer-col">
+        <h4 class="footer-col-title">Help</h4>
+        <ul class="footer-col-links">
+          <li><a href="#" onclick="openTrackOrder()" class="footer-link">Track Your Order</a></li>
+          <li><a href="#" onclick="navigateTo('contact')" class="footer-link">Contact Us</a></li>
+          <li><a href="#" onclick="openPrivacyPolicy();return false;" class="footer-link">Privacy Policy</a></li>
+          <li><a href="#" onclick="openTermsOfService();return false;" class="footer-link">Terms of Service</a></li>
+          <li><a href="#" onclick="navigateTo('about')" class="footer-link">Our Story</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Column -->
+      <div class="footer-col footer-newsletter-col">
+        <h4 class="footer-col-title">Stay Green</h4>
+        <p class="footer-newsletter-desc">Monthly plant tips, rare drops & growing guides. No spam, ever.</p>
+        <form class="footer-newsletter-form" onsubmit="event.preventDefault();showToast('🌱 Welcome to the Verdant community!')" novalidate>
+          <input type="email" class="footer-newsletter-input" placeholder="your@email.com" aria-label="Email for newsletter" required />
+          <button class="btn btn-terra" type="submit" style="width:100%;justify-content:center;padding:12px 20px">Subscribe →</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Verdant Ltd. Made by <strong style="color:var(--sage)">Saadia</strong></p>
+      <div class="footer-bottom-links">
+        <a href="#" onclick="openPrivacyPolicy();return false;" class="footer-legal-link">Privacy</a>
+        <a href="#" onclick="openTermsOfService();return false;" class="footer-legal-link">Terms</a>
+        <a href="#" onclick="navigateTo('contact')" class="footer-legal-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ CART SIDEBAR ═══════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay" role="dialog" aria-label="Shopping cart" aria-modal="true">
+  <div class="cart-backdrop" onclick="closeCart()"></div>
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h2 class="cart-title">Your Cart 🌿</h2>
+      <button class="cart-close" onclick="closeCart()" aria-label="Close cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-empty">
+        <div class="empty-icon">🪴</div>
+        <h3>Your cart is empty</h3>
+        <p>Add some plants to get started!</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter"></div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT MODAL ══════════════════════════════════════ -->
+<div class="modal-overlay" id="productModal" role="dialog" aria-label="Product details" aria-modal="true" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close-btn" onclick="closeModal()" aria-label="Close product details">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ══ TOAST ══════════════════════════════════════════════ -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+  <span class="toast-icon" aria-hidden="true">🌿</span>
+  <span class="toast-msg"></span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
