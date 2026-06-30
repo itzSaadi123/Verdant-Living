@@ -1,97 +1,79 @@
 /* ============================================================
-   VERDANT — App Logic v2.0 (Fixed Images)
+   VERDANT — App Logic (app.js)
    ============================================================ */
 
-// ── Real Unsplash images per plant (Fixed) ─────────────────
+// ── Plant Images (for products) ─────────────────────────────
 const plantImages = {
-  // FLOWERS - Better images
-  1:  'https://i.pinimg.com/736x/07/e7/c7/07e7c70297742e7aefeeb5d900af5e39.jpg',  // Red Rose ✓
-  2:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK89qFksbveQGB9tJtN1wDCtfMecZP4qyx4ptI3PXIDF13bXxPuJdhdBc&s=10', // Sunflower ✓
-  3:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEXQxkrUSGLKy4tVx5c72NtUaWeWZlLOSFS_CQmPqcokefTyM15hFgiILS&s=10', // Pink Tulip ✓
-  4:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAvt_V11WmxGen-DUgYhHmvimZ_lG8iwWgog-i7AALmIU-G1kFN9aGM-8&s=10', // White Daisy ✓
-  5:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc4R6bhzEMeudiDc0kpTeQ9kbIG316QD5RoUTREfr28Q&s=10',    // Lavender ✓
-  6:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Rp4_A_yfuFkCyEJr0j-eQKUJpIsRrPn3aMUHkhCX8Jmm5QmO4_0BhVI&s=10', // Daffodil ✓
-  7:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeCXkl4RHVq_-Bx-8pwaLDzqC_d1KaaQjQMjCgp4wH_g&s=10', // Orchid ✓
-  8:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdPKecQ0hT52TDoAnvT6qpxizBGI_si3egXPqAH85UYVnXDlch5xqI3icK&s=10', // Hibiscus ✓
-  9:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS08oRNOwJZIyl4o0_fBE5bIn6z7co3YWj8kV9Y8pm7yA&s=10', // Cherry Blossom ✓
-  10: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37RUmMxRnV6V1vxBO-OeAvAx8sGntaMFnMalaU_jGdQ&s=10', // Sunflower Dwarf
-  11: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-3XsKTHK7eFJgBCAByU-kdCzzijfcNX_l3HkYP2uuVr6iagA7uamlH6M&s=10', // White Lily ✓
-  12: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3kvAk5xSLqKy4ltUVY_4hyMYoHcQ-F9Y9dkhbOp9Giw-KjukPN0ppY_U&s=10', // Marigold ✓
-  
-  // TROPICALS
-  13: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrlacGXJ1xJ-f-2z4cLcRDgRpBaPtu2M96xlN7vpcMnw&s=10s', // Monstera ✓
-  14: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSltFOUbUZkNr08snM7FCfJK0WICE4jmsPPUJCC0QsBw&s=10', // Bird of Paradise ✓
-  15: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtKWmW2obOdda2QUwYdccjimoqGmKFrnp3VfR595YLrQ&s=10', // Calathea Ornata ✓
-  16: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvlf8okSsuiLT6Bon8ew1UsWCdNIbj6a90kHlSCgWMhA&s=10', // Alocasia Zebrina ✓
-  17: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR05n1wPgguLx6mUCBX555dIyMI2jClzVkIiQbGzsEaqQ&s=10', // Aglaonema Red ✓
-  18: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzFy-G5Jk3KGygzhw7SHWGDxJ-Ir8289wBFcETFcr8A&s=10', // Calathea Rattlesnake
-  19: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxSMvXkNC2t2Qj32dWIej_5cJyApVIGFjtZvnl6Orr7A&s=10', // Croton
-  20: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDAwbexvwO3D3ccbn0N_99P3SrHtAIByQFmaefjV7dcA&s=10', // Stromanthe
-  21: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlyGCeU8Dd3cMFGZKX57FuIoG7SnwGtHltZsGpPz9Ipw&s=10', // Alocasia Polly
-  22: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7umylnR2jq8veKkEMkkVMs_br6w48NgHjyOl_zb6fpA&s=10', // Prayer Plant
-  
-  // STATEMENT
-  23: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQdbTd5MO3NuT3XzLBKs5yu4eWdbMCIei5jkEImuQmzQ&s=10', // Fiddle Leaf Fig ✓
-  24: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVbtFYU1gncnH29vHAYiho7JMyjTnYRcgWUE2_6KuyGA&s=10', // Rubber Plant
-  25: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu7zRAcd_1vN9mgUywPmJdI2bP9o3XI4FVSr0srPV-eQ&s=10',    // Dracaena
-  26: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROIZCcvt8uVX7i4SqdmTU0a6ZOiLQZVWd5beoTBNxJkQ&s=10', // Elephant Ear
-  27: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbghaKJVMHotJq_f0R4kIeDvEUlGnQnJ_JOoFuTvKrDw&s=10', // Dieffenbachia
-  28: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgIgK33tFDWFzIQMo_ib-W_EsDpjmCfklKeMlTvvxVog&s=10', // Umbrella
-  
-  // TRAILING
-  29: 'https://aroidwiki.com/wp-content/uploads/2021/11/golden-pothos-care-image1-768x1024.jpg', // Golden Pothos ✓
-  30: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfSnqno1k_67Kd3Ph0vczif9UhSFgG9ZTBB1p0aUzq6Q&s=10', // String of Pearls ✓
-  31: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtXVmcaIHaxWoDeV19Ybq0_57s8I5kayoqv_voOa1dcA&s=10', // String of Hearts ✓
-  32: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFsrV1AwRXBnBH5M1MGPJ83raPGMBj8ZRD50kpLggYpLcS_hLu7stEy4M&s=10', // Swiss Cheese
-  33: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuHmp7ab9QoMNWbLDpvVDbW2QMyFzynlhB7kcWWRCnFw&s=10', // Tradescantia
-  34: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDm_Evy0hoWKQq1_Tmu1QQonoSfecj3S4h0jXVUICZzg&s=10', // Philodendron Brasil
-  35: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP4UNDWsNyUhXDWicXhsti8hNO-LfLckqgDh6e8qsOJQ&s=10',    // Spider Plant ✓
-  36: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpRhQ-xGEyTcwrPy_jaZpnQ04WyBQYusY0psHdEM-r_g&s',    // Boston Fern
-  37: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSypEp70cthQNdeU8oHboqD52TSQiML5lmMd10AwQFkDw&s=10', // Hoya Carnosa
-  38: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfsZMDr7dg6WO9Q2twuoPoZbqr2ks9t-8layCl1yxgg&s=10', // Satin Pothos
-  39: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW38zUNHjomfpMNsLfksOsOpXPAqIYVLUYMCYD5AgbrA&s=10', // Burro's Tail
-  40: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3BOJo8ZvGVg7BFoA-V-uWTIgjWyx1yYklIzJqd5LFcQ&s=10', // Arrowhead
-  
-  // SMALL
-  41: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYDoQTHK0xqL7EOpUINfCdoSHLwANcMMv-ItOu_Y9e7g&s=10', // Pilea
-  42: 'https://m.media-amazon.com/images/I/6124b1iP9uL._AC_UF1000,1000_QL80_.jpg', // Hoya Kerrii
-  43: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdYU8ZwxmlsOgAMm6TnlxgAJZNnaheUCvYxGGbscPosg&s=10', // Peperomia
-  44: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR14EWOQ4a8LU2dKqt18hYVCYXOis7FUfD1iUmWLHyzUQ&s=10', // Chinese Money
-  45: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz7MS7r-nUmxBtBRfkL798ymMHrdSkyqGTWlqmFdaKFw&s=10',    // Lemon Button Fern
-  46: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcs6s9yZ3tgecqQm59oNYwugyCdv5AmyeYwA_AgAVyUw&s=10', // Nerve Plant
-  
-  // SUCCULENTS
-  47: 'https://houseplantshop.com/cdn/shop/files/Gemini_Generated_Image_b6id5yb6id5yb6id_700x700.png?v=1775489264', // Aloe Vera ✓
-  48: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH1VQV-4bQCzGJH8Gy3AwSjGaHAY0TOk8OSAW5kpLC9w&s=10', // Echeveria ✓
-  49: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyDCm6___G4ZexrH9Nfaf9sRVHXk3wXOqSaVT7Vgt9pA&s=10', // Cactus Mix ✓
-  50: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6lk4RXpFK5yOLLYQwFzLPx9O260p4YkRKZv8hTdHvuA&s=10', // Jade Plant ✓
-  51: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY82siF8VuQf9dxMte6uNAP0JJKabbXEQPBySC2Bd9iA&s=10', // Haworthia
-  52: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpwSO-g2sCQ8IoUr5O23JGFr6McPcTO0mk_DNo2s_tsQ&s=10', // Bunny Ear Cactus
-  
-  // RARE
-  53: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmfpaolbJdZc5t_6rEsK0_SP8cOgb4sm9OBDb_-nWtHA&s=10', // Pink Princess
-  54: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfCxdb_s4ufKmuEGW2grCAcMVHjcsw5iNZe4v1dLMMgQ&s=10', // Monstera Albo
-  55: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOOzGwcQ4hbqAfo-emDJvZxvClEBejj7JDegnPxhzV9Q&s=10', // Anthurium
-  56: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ5hUNB96FzhqZjg5UTJ5BIPlWOTTtYECu8Nl50iVOfQ&s=10',    // Staghorn Fern
-  57: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMJBfp6ylzTK_fmhqW30OW7yd3GWl47mlZjxiAFb8HaA&s=10', // Ph. Gloriosum
-  58: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOqLNeQ8WlfXUoBEXdlV5xC1UkQ_OOOZ7I-4oxxA81eg&s=10', // Ph. Birkin
-  
-  // FLOWERING
-  59: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLyQz-TuuUYY4m8z7H2JXOa3UDGu4g4vWUfx-03Uat8g&s=10', // Peace Lily ✓
-  60: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYpkPlmZbJ-LP4R9PzGgl9Nda2SCnv6_xCxyzUhD7TGA&s=10', // Begonia Maculata
-  61: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkejYvZ6owmWD0xeDO5bi_9Wery8ag589kg3JsZAytqA&s=10',    // Oxalis
-  62: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNVqxu9FFMh4fDTmX216UzKIkmImyma6ek9c_XuOsK5w&s=10', // Desert Rose
-  63: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjmC8kb-xnuQSGE-blKmVFdK8mxKnLlaPhI4sZec32dw&s=10', // Wax Plant
-  
-  // LOW MAINTENANCE
-  64: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxIt-JiwR1gpbnohxdbR8_LZ41vKl6AWySlAAYK_n0Gg&s', // Snake Plant ✓
-  65: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi6hhhjjDJbft_S8YROP9YVn_2XQ9cHwz-MdXC7-9Xpw&s=10', // ZZ Plant ✓
-  66: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNYicBlddKdqiQulUNg6T0_gbOHO_nEn2lHNpHFX3LfQ&s=10',    // Cast Iron
+  1:  'https://i.pinimg.com/736x/07/e7/c7/07e7c70297742e7aefeeb5d900af5e39.jpg',
+  2:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK89qFksbveQGB9tJtN1wDCtfMecZP4qyx4ptI3PXIDF13bXxPuJdhdBc&s=10',
+  3:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEXQxkrUSGLKy4tVx5c72NtUaWeWZlLOSFS_CQmPqcokefTyM15hFgiILS&s=10',
+  4:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAvt_V11WmxGen-DUgYhHmvimZ_lG8iwWgog-i7AALmIU-G1kFN9aGM-8&s=10',
+  5:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc4R6bhzEMeudiDc0kpTeQ9kbIG316QD5RoUTREfr28Q&s=10',
+  6:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-Rp4_A_yfuFkCyEJr0j-eQKUJpIsRrPn3aMUHkhCX8Jmm5QmO4_0BhVI&s=10',
+  7:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeCXkl4RHVq_-Bx-8pwaLDzqC_d1KaaQjQMjCgp4wH_g&s=10',
+  8:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdPKecQ0hT52TDoAnvT6qpxizBGI_si3egXPqAH85UYVnXDlch5xqI3icK&s=10',
+  9:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS08oRNOwJZIyl4o0_fBE5bIn6z7co3YWj8kV9Y8pm7yA&s=10',
+  10: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37RUmMxRnV6V1vxBO-OeAvAx8sGntaMFnMalaU_jGdQ&s=10',
+  11: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-3XsKTHK7eFJgBCAByU-kdCzzijfcNX_l3HkYP2uuVr6iagA7uamlH6M&s=10',
+  12: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3kvAk5xSLqKy4ltUVY_4hyMYoHcQ-F9Y9dkhbOp9Giw-KjukPN0ppY_U&s=10',
+  13: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrlacGXJ1xJ-f-2z4cLcRDgRpBaPtu2M96xlN7vpcMnw&s=10s',
+  14: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSltFOUbUZkNr08snM7FCfJK0WICE4jmsPPUJCC0QsBw&s=10',
+  15: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtKWmW2obOdda2QUwYdccjimoqGmKFrnp3VfR595YLrQ&s=10',
+  16: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvlf8okSsuiLT6Bon8ew1UsWCdNIbj6a90kHlSCgWMhA&s=10',
+  17: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR05n1wPgguLx6mUCBX555dIyMI2jClzVkIiQbGzsEaqQ&s=10',
+  18: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzFy-G5Jk3KGygzhw7SHWGDxJ-Ir8289wBFcETFcr8A&s=10',
+  19: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxSMvXkNC2t2Qj32dWIej_5cJyApVIGFjtZvnl6Orr7A&s=10',
+  20: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDAwbexvwO3D3ccbn0N_99P3SrHtAIByQFmaefjV7dcA&s=10',
+  21: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlyGCeU8Dd3cMFGZKX57FuIoG7SnwGtHltZsGpPz9Ipw&s=10',
+  22: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7umylnR2jq8veKkEMkkVMs_br6w48NgHjyOl_zb6fpA&s=10',
+  23: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQdbTd5MO3NuT3XzLBKs5yu4eWdbMCIei5jkEImuQmzQ&s=10',
+  24: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVbtFYU1gncnH29vHAYiho7JMyjTnYRcgWUE2_6KuyGA&s=10',
+  25: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu7zRAcd_1vN9mgUywPmJdI2bP9o3XI4FVSr0srPV-eQ&s=10',
+  26: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROIZCcvt8uVX7i4SqdmTU0a6ZOiLQZVWd5beoTBNxJkQ&s=10',
+  27: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbghaKJVMHotJq_f0R4kIeDvEUlGnQnJ_JOoFuTvKrDw&s=10',
+  28: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgIgK33tFDWFzIQMo_ib-W_EsDpjmCfklKeMlTvvxVog&s=10',
+  29: 'https://aroidwiki.com/wp-content/uploads/2021/11/golden-pothos-care-image1-768x1024.jpg',
+  30: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfSnqno1k_67Kd3Ph0vczif9UhSFgG9ZTBB1p0aUzq6Q&s=10',
+  31: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtXVmcaIHaxWoDeV19Ybq0_57s8I5kayoqv_voOa1dcA&s=10',
+  32: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFsrV1AwRXBnBH5M1MGPJ83raPGMBj8ZRD50kpLggYpLcS_hLu7stEy4M&s=10',
+  33: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuHmp7ab9QoMNWbLDpvVDbW2QMyFzynlhB7kcWWRCnFw&s=10',
+  34: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDm_Evy0hoWKQq1_Tmu1QQonoSfecj3S4h0jXVUICZzg&s=10',
+  35: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP4UNDWsNyUhXDWicXhsti8hNO-LfLckqgDh6e8qsOJQ&s=10',
+  36: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpRhQ-xGEyTcwrPy_jaZpnQ04WyBQYusY0psHdEM-r_g&s',
+  37: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSypEp70cthQNdeU8oHboqD52TSQiML5lmMd10AwQFkDw&s=10',
+  38: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTfsZMDr7dg6WO9Q2twuoPoZbqr2ks9t-8layCl1yxgg&s=10',
+  39: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW38zUNHjomfpMNsLfksOsOpXPAqIYVLUYMCYD5AgbrA&s=10',
+  40: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3BOJo8ZvGVg7BFoA-V-uWTIgjWyx1yYklIzJqd5LFcQ&s=10',
+  41: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYDoQTHK0xqL7EOpUINfCdoSHLwANcMMv-ItOu_Y9e7g&s=10',
+  42: 'https://m.media-amazon.com/images/I/6124b1iP9uL._AC_UF1000,1000_QL80_.jpg',
+  43: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdYU8ZwxmlsOgAMm6TnlxgAJZNnaheUCvYxGGbscPosg&s=10',
+  44: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR14EWOQ4a8LU2dKqt18hYVCYXOis7FUfD1iUmWLHyzUQ&s=10',
+  45: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz7MS7r-nUmxBtBRfkL798ymMHrdSkyqGTWlqmFdaKFw&s=10',
+  46: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcs6s9yZ3tgecqQm59oNYwugyCdv5AmyeYwA_AgAVyUw&s=10',
+  47: 'https://houseplantshop.com/cdn/shop/files/Gemini_Generated_Image_b6id5yb6id5yb6id_700x700.png?v=1775489264',
+  48: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH1VQV-4bQCzGJH8Gy3AwSjGaHAY0TOk8OSAW5kpLC9w&s=10',
+  49: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyDCm6___G4ZexrH9Nfaf9sRVHXk3wXOqSaVT7Vgt9pA&s=10',
+  50: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6lk4RXpFK5yOLLYQwFzLPx9O260p4YkRKZv8hTdHvuA&s=10',
+  51: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY82siF8VuQf9dxMte6uNAP0JJKabbXEQPBySC2Bd9iA&s=10',
+  52: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpwSO-g2sCQ8IoUr5O23JGFr6McPcTO0mk_DNo2s_tsQ&s=10',
+  53: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmfpaolbJdZc5t_6rEsK0_SP8cOgb4sm9OBDb_-nWtHA&s=10',
+  54: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfCxdb_s4ufKmuEGW2grCAcMVHjcsw5iNZe4v1dLMMgQ&s=10',
+  55: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOOzGwcQ4hbqAfo-emDJvZxvClEBejj7JDegnPxhzV9Q&s=10',
+  56: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ5hUNB96FzhqZjg5UTJ5BIPlWOTTtYECu8Nl50iVOfQ&s=10',
+  57: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMJBfp6ylzTK_fmhqW30OW7yd3GWl47mlZjxiAFb8HaA&s=10',
+  58: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOqLNeQ8WlfXUoBEXdlV5xC1UkQ_OOOZ7I-4oxxA81eg&s=10',
+  59: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLyQz-TuuUYY4m8z7H2JXOa3UDGu4g4vWUfx-03Uat8g&s=10',
+  60: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYpkPlmZbJ-LP4R9PzGgl9Nda2SCnv6_xCxyzUhD7TGA&s=10',
+  61: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkejYvZ6owmWD0xeDO5bi_9Wery8ag589kg3JsZAytqA&s=10',
+  62: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNVqxu9FFMh4fDTmX216UzKIkmImyma6ek9c_XuOsK5w&s=10',
+  63: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjmC8kb-xnuQSGE-blKmVFdK8mxKnLlaPhI4sZec32dw&s=10',
+  64: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxIt-JiwR1gpbnohxdbR8_LZ41vKl6AWySlAAYK_n0Gg&s',
+  65: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi6hhhjjDJbft_S8YROP9YVn_2XQ9cHwz-MdXC7-9Xpw&s=10',
+  66: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNYicBlddKdqiQulUNg6T0_gbOHO_nEn2lHNpHFX3LfQ&s=10',
 };
 
-// ── 65+ Products with color backgrounds ───────────────────
+// ── 66 Products ─────────────────────────────────────────────
 const products = [
-  // FLOWERS
   { id:1,  name:'Red Rose',                   latin:'Rosa rubiginosa',           category:'flowers',       emoji:'🌹', bg:'#fff0f0', price:22,  origPrice:null, rating:4.9, reviews:821, care:2, badge:'bestseller', light:'Full Sun',        water:'Twice weekly', humidity:'Medium',    desc:'The eternal symbol of love and beauty. Deep crimson petals with a heady fragrance that fills any room. Best given with intention, kept with care.' },
   { id:2,  name:'Sunflower',                  latin:'Helianthus annuus',        category:'flowers',       emoji:'🌻', bg:'#fff8e0', price:16,  origPrice:null, rating:4.8, reviews:634, care:1, badge:null,          light:'Full Sun',        water:'Weekly',    humidity:'Low',       desc:'Nature\'s own sunshine — a giant golden face that literally follows the sun. Cheerful, bold, and impossible not to smile at.' },
   { id:3,  name:'Pink Tulip',                 latin:'Tulipa gesneriana',        category:'flowers',       emoji:'🌷', bg:'#fff0f5', price:18,  origPrice:24,   rating:4.7, reviews:512, care:2, badge:'sale',        light:'Bright Indirect', water:'Weekly',    humidity:'Medium',    desc:'Elegant cup-shaped blooms in the softest blush-pink. A spring classic that signals renewal and hope with effortless grace.' },
@@ -104,7 +86,6 @@ const products = [
   { id:10, name:'Sunflower Dwarf',            latin:'Helianthus annuus nanus',  category:'flowers',       emoji:'🌻', bg:'#fff5d0', price:13,  origPrice:null, rating:4.8, reviews:321, care:1, badge:'new',         light:'Full Sun',        water:'Weekly',    humidity:'Low',       desc:'All the personality of a full sunflower in a compact pot-friendly size. Bright, cheerful, and perfect on a sunny windowsill.' },
   { id:11, name:'White Lily',                 latin:'Lilium candidum',          category:'flowers',       emoji:'🤍', bg:'#f8f8ff', price:32,  origPrice:null, rating:4.7, reviews:178, care:2, badge:null,          light:'Full Sun',        water:'Weekly',    humidity:'Medium',    desc:'Pure white trumpet blooms with an intoxicating fragrance. Regal, classical, and utterly beautiful. A wedding favourite for centuries.' },
   { id:12, name:'Marigold',                   latin:'Tagetes erecta',           category:'flowers',       emoji:'🟡', bg:'#fff4d0', price:10,  origPrice:null, rating:4.7, reviews:445, care:1, badge:'bestseller',  light:'Full Sun',        water:'Weekly',    humidity:'Low',       desc:'Vivid orange-gold pompoms that bloom from summer to frost. A natural pest deterrent and edible garnish. The workhorse of the flower garden.' },
-  // TROPICALS
   { id:13, name:'Monstera Deliciosa',         latin:'Monstera deliciosa',       category:'tropical',      emoji:'🌿', bg:'#e8f5e9', price:48,  origPrice:null, rating:4.9, reviews:534, care:2, badge:'bestseller',  light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'The iconic split-leaf philodendron. Fast-growing and bold — maximum drama, minimum fuss. The king of the indoor jungle.' },
   { id:14, name:'Bird of Paradise',           latin:'Strelitzia reginae',       category:'tropical',      emoji:'🌴', bg:'#e0f5ec', price:135, origPrice:null, rating:4.7, reviews:89,  care:2, badge:'rare',        light:'Full Sun',        water:'Weekly',    humidity:'Medium',    desc:'Bold architectural leaves that unfurl like exotic wings. Transforms any room into a tropical sanctuary instantly.' },
   { id:15, name:'Calathea Ornata',            latin:'Calathea ornata',          category:'tropical',      emoji:'🎋', bg:'#e8f0e0', price:42,  origPrice:null, rating:4.4, reviews:198, care:3, badge:'new',         light:'Low Indirect',    water:'Weekly',    humidity:'Very High', desc:'Hand-painted pin-stripe leaves. Moves with the sun — a living breathing sculpture that surprises you every morning.' },
@@ -115,14 +96,12 @@ const products = [
   { id:20, name:'Stromanthe Sanguinea',       latin:'Stromanthe sanguinea',     category:'tropical',      emoji:'🎨', bg:'#f8e8f5', price:46,  origPrice:null, rating:4.6, reviews:112, care:2, badge:'new',         light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Tricolour leaves of green, cream and magenta-pink beneath. One of the most beautiful foliage plants in existence.' },
   { id:21, name:'Alocasia Polly',             latin:'Alocasia amazonica',       category:'tropical',      emoji:'🐊', bg:'#e0ede5', price:52,  origPrice:null, rating:4.5, reviews:164, care:3, badge:null,          light:'Bright Indirect', water:'Weekly',    humidity:'Very High', desc:'Dark sculptural leaves with dramatic white veins. Bold, brooding, and breathtaking — the apex predator of houseplants.' },
   { id:22, name:'Prayer Plant',               latin:'Maranta leuconeura',       category:'tropical',      emoji:'🙏', bg:'#e8f0e0', price:25,  origPrice:null, rating:4.6, reviews:267, care:2, badge:null,          light:'Low Indirect',    water:'Weekly',    humidity:'High',      desc:'Herringbone-patterned leaves that fold upward at night, like hands in prayer. Meditative and endlessly fascinating.' },
-  // STATEMENT
   { id:23, name:'Fiddle Leaf Fig',            latin:'Ficus lyrata',             category:'statement',     emoji:'🌳', bg:'#eaf5ea', price:89,  origPrice:120,  rating:4.5, reviews:142, care:3, badge:'sale',        light:'Bright Direct',   water:'Bi-weekly', humidity:'Medium',    desc:'Designer darling with grand violin-shaped leaves. Rewards consistent care with statuesque indoor-tree beauty.' },
   { id:24, name:'Rubber Plant',               latin:'Ficus elastica',           category:'statement',     emoji:'🫒', bg:'#e5ede0', price:54,  origPrice:70,   rating:4.6, reviews:187, care:2, badge:'sale',        light:'Bright Indirect', water:'Bi-weekly', humidity:'Medium',    desc:'Deep burgundy to forest-green glossy leaves. Grows into a magnificent indoor tree with minimal fuss.' },
   { id:25, name:'Dracaena Marginata',         latin:'Dracaena marginata',       category:'statement',     emoji:'🌴', bg:'#e8f0e0', price:65,  origPrice:null, rating:4.6, reviews:176, care:1, badge:null,          light:'Low to Bright',   water:'Bi-weekly', humidity:'Low',       desc:'Spiky red-edged leaves on elegant canes. Brings structural drama to any room with almost zero effort.' },
   { id:26, name:'Elephant Ear',               latin:'Colocasia esculenta',      category:'statement',     emoji:'🐘', bg:'#e0ede8', price:75,  origPrice:95,   rating:4.6, reviews:87,  care:2, badge:'sale',        light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Colossal heart-shaped leaves on dramatic stems. Creates instant tropical-jungle atmosphere in any corner.' },
   { id:27, name:'Dieffenbachia',              latin:'Dieffenbachia seguine',    category:'statement',     emoji:'🟢', bg:'#e8f5e0', price:38,  origPrice:50,   rating:4.5, reviews:134, care:2, badge:'sale',        light:'Low to Medium',   water:'Bi-weekly', humidity:'Medium',    desc:'Bold cream-and-green patterned leaves on a thick cane. Lush, tropical, and thoroughly low-drama.' },
   { id:28, name:'Umbrella Plant',             latin:'Schefflera arboricola',    category:'statement',     emoji:'☂️', bg:'#e5ede8', price:45,  origPrice:60,   rating:4.5, reviews:98,  care:2, badge:'sale',        light:'Bright Indirect', water:'Bi-weekly', humidity:'Medium',    desc:'Palmate leaves radiate like elegant green umbrellas. Grows into a graceful indoor tree over time.' },
-  // TRAILING
   { id:29, name:'Golden Pothos',              latin:'Epipremnum aureum',        category:'trailing',      emoji:'💚', bg:'#e8f5e0', price:18,  origPrice:null, rating:5.0, reviews:789, care:1, badge:null,          light:'Low to Bright',   water:'Bi-weekly', humidity:'Any',       desc:'The unkillable beauty. Cascades from shelves, climbs trellises, thrives anywhere. Golden-green and gloriously easy.' },
   { id:30, name:'String of Pearls',           latin:'Curio rowleyanus',         category:'trailing',      emoji:'🍇', bg:'#ede8f5', price:28,  origPrice:36,   rating:4.6, reviews:156, care:2, badge:'sale',        light:'Bright Direct',   water:'Bi-weekly', humidity:'Low',       desc:'Plump spherical leaves cascade like nature\'s beaded curtain. A showstopper in hanging planters or high shelves.' },
   { id:31, name:'String of Hearts',           latin:'Ceropegia woodii',         category:'trailing',      emoji:'💗', bg:'#ffe8f0', price:22,  origPrice:28,   rating:4.9, reviews:389, care:1, badge:'sale',        light:'Bright Indirect', water:'Bi-weekly', humidity:'Low',       desc:'Tiny heart-shaped leaves on gossamer vines. Romantic, delicate, and surprisingly tough. Perfect Valentine\'s gift.' },
@@ -135,34 +114,29 @@ const products = [
   { id:38, name:'Satin Pothos',               latin:'Scindapsus pictus',        category:'trailing',      emoji:'🩶', bg:'#e8eef5', price:22,  origPrice:null, rating:4.8, reviews:301, care:1, badge:null,          light:'Low to Medium',   water:'Bi-weekly', humidity:'Any',       desc:'Silvery-satin sheen on heart-shaped leaves. Trails beautifully and tolerates low light graciously.' },
   { id:39, name:'Burro\'s Tail',              latin:'Sedum morganianum',        category:'trailing',      emoji:'🐴', bg:'#e8f5f0', price:22,  origPrice:null, rating:4.7, reviews:176, care:1, badge:null,          light:'Bright to Full Sun',water:'Monthly', humidity:'Low',       desc:'Long stems packed with plump blue-green leaves. Requires a high shelf to cascade from — worth it entirely.' },
   { id:40, name:'Arrowhead Plant',            latin:'Syngonium podophyllum',    category:'trailing',      emoji:'🏹', bg:'#e8f0e8', price:19,  origPrice:null, rating:4.6, reviews:223, care:1, badge:null,          light:'Low to Bright',   water:'Weekly',    humidity:'Medium',    desc:'Arrow-shaped leaves shift from pale green to emerald as it matures. Versatile, lovely, and very forgiving.' },
-  // SMALL
   { id:41, name:'Pilea Peperomioides',        latin:'Pilea peperomioides',      category:'small',         emoji:'🪴', bg:'#e8f5e8', price:24,  origPrice:null, rating:4.8, reviews:367, care:1, badge:'new',         light:'Medium Indirect', water:'Weekly',    humidity:'Low',       desc:'The friendship plant — constantly produces pups to share. Coins of green happiness on slender stems.' },
   { id:42, name:'Hoya Kerrii',                latin:'Hoya kerrii',              category:'small',         emoji:'💛', bg:'#fffbe0', price:12,  origPrice:null, rating:4.9, reviews:634, care:1, badge:'bestseller',  light:'Bright Indirect', water:'Bi-weekly', humidity:'Low',       desc:'The sweetheart plant — a single heart-shaped leaf that lasts for years. The most perfect little gift.' },
   { id:43, name:'Peperomia Watermelon',       latin:'Peperomia argyreia',       category:'small',         emoji:'🍉', bg:'#e8f5e0', price:20,  origPrice:null, rating:4.8, reviews:398, care:1, badge:null,          light:'Medium Indirect', water:'Bi-weekly', humidity:'Medium',    desc:'Striped like a watermelon, compact like a gem. The most charming small plant you\'ll ever own.' },
   { id:44, name:'Chinese Money Plant',        latin:'Pilea peperomioides',      category:'small',         emoji:'🪙', bg:'#fffbe8', price:21,  origPrice:null, rating:4.8, reviews:445, care:1, badge:'bestseller',  light:'Bright Indirect', water:'Weekly',    humidity:'Low',       desc:'Round paddle leaves on slender stems. Lucky, stylish, and constantly making new babies to share.' },
   { id:45, name:'Lemon Button Fern',          latin:'Nephrolepis cordifolia',   category:'small',         emoji:'🍋', bg:'#fffde0', price:18,  origPrice:null, rating:4.6, reviews:143, care:2, badge:'new',         light:'Indirect',        water:'Weekly',    humidity:'High',      desc:'Tiny button-like leaflets on arching fronds. Compact, cheerful, and subtly citrus-scented when touched.' },
   { id:46, name:'Nerve Plant',                latin:'Fittonia albivenis',       category:'small',         emoji:'🕸️', bg:'#ffe8e8', price:12,  origPrice:null, rating:4.5, reviews:267, care:2, badge:null,          light:'Low Indirect',    water:'Weekly',    humidity:'Very High', desc:'Vivid white or pink vein networks across deep green leaves. A living mosaic — fascinating up close.' },
-  // SUCCULENTS
   { id:47, name:'Aloe Vera',                  latin:'Aloe barbadensis miller',  category:'succulent',     emoji:'🌵', bg:'#e8f5e8', price:16,  origPrice:null, rating:4.9, reviews:789, care:1, badge:null,          light:'Full Sun',        water:'Monthly',   humidity:'Low',       desc:'Nature\'s medicine cabinet. Soothing gel inside, architectural spikes outside. Practically immortal and deeply useful.' },
   { id:48, name:'Echeveria Elegans',          latin:'Echeveria elegans',        category:'succulent',     emoji:'🌸', bg:'#fce8f5', price:10,  origPrice:null, rating:4.8, reviews:428, care:1, badge:null,          light:'Full Sun',        water:'Monthly',   humidity:'Low',       desc:'Powder-blue rosette of fleshy leaves. Hardy, beautiful, and multiplies into beautiful colonies.' },
   { id:49, name:'Cactus Mix',                 latin:'Cactaceae spp.',           category:'succulent',     emoji:'🌵', bg:'#e8f0e8', price:19,  origPrice:null, rating:4.7, reviews:356, care:1, badge:'bestseller',  light:'Full Sun',        water:'Monthly',   humidity:'Very Low',  desc:'A curated trio of desert dwellers. Architectural, timeless, and zero-drama. The easiest plants on earth.' },
   { id:50, name:'Jade Plant',                 latin:'Crassula ovata',           category:'succulent',     emoji:'🍀', bg:'#e8f5e8', price:24,  origPrice:null, rating:4.8, reviews:298, care:1, badge:null,          light:'Full Sun',        water:'Bi-weekly', humidity:'Low',       desc:'The money tree of succulents. Plump jade leaves, thick trunk, grows for decades. A living heirloom.' },
   { id:51, name:'Haworthia Fasciata',         latin:'Haworthia fasciata',       category:'succulent',     emoji:'🦔', bg:'#e8f0e8', price:14,  origPrice:null, rating:4.9, reviews:412, care:1, badge:null,          light:'Indirect',        water:'Monthly',   humidity:'Low',       desc:'Zebra-striped rosette of fleshy leaves. Hardy, adorable, and perfect for tiny shelves or desks.' },
   { id:52, name:'Bunny Ear Cactus',           latin:'Opuntia microdasys',       category:'succulent',     emoji:'🐰', bg:'#f5ffe8', price:18,  origPrice:null, rating:4.8, reviews:287, care:1, badge:'bestseller',  light:'Full Sun',        water:'Monthly',   humidity:'Very Low',  desc:'Flat pads dotted with white spines in the shape of bunny ears. Irresistibly cute and virtually unkillable.' },
-  // RARE
   { id:53, name:'Pink Princess Philodendron', latin:'Philodendron erubescens',  category:'rare',          emoji:'🌸', bg:'#ffe8f5', price:165, origPrice:null, rating:4.9, reviews:47,  care:2, badge:'rare',        light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Coveted magenta variegation — each leaf a unique artwork. Crown jewel of any plant collection.' },
   { id:54, name:'Monstera Albo Variegata',    latin:'Monstera deliciosa albo',  category:'rare',          emoji:'🤍', bg:'#f8f8f0', price:280, origPrice:null, rating:5.0, reviews:31,  care:2, badge:'rare',        light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'White-splashed leaves of extraordinary rarity. The most coveted houseplant of the decade — a true collector\'s trophy.' },
   { id:55, name:'Anthurium Clarinervium',     latin:'Anthurium clarinervium',   category:'rare',          emoji:'❤️', bg:'#ffe8e8', price:145, origPrice:null, rating:4.8, reviews:62,  care:2, badge:'rare',        light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Velvety heart-shaped leaves with bright white veins. A collector\'s obsession for good reason.' },
   { id:56, name:'Staghorn Fern',              latin:'Platycerium bifurcatum',   category:'rare',          emoji:'🦌', bg:'#e8f0e8', price:95,  origPrice:null, rating:4.7, reviews:56,  care:2, badge:'rare',        light:'Bright Indirect', water:'Bi-weekly', humidity:'High',      desc:'Spectacular antler-shaped fronds mount on wood or cork. Living wall art that stops people in their tracks.' },
   { id:57, name:'Philodendron Gloriosum',     latin:'Philodendron gloriosum',   category:'rare',          emoji:'🩵', bg:'#e8f5ff', price:195, origPrice:null, rating:4.9, reviews:39,  care:2, badge:'rare',        light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Velvety heart-shaped leaves with pristine white veins. Crawls majestically along the soil — deeply satisfying.' },
   { id:58, name:'Philodendron Birkin',        latin:'Philodendron Birkin',      category:'rare',          emoji:'🤎', bg:'#f5e8e0', price:58,  origPrice:null, rating:4.8, reviews:134, care:2, badge:'rare',        light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Each new leaf reveals more cream pinstripes on dark green. A plant that keeps surprising you as it grows.' },
-  // FLOWERING
   { id:59, name:'Peace Lily',                 latin:'Spathiphyllum wallisii',   category:'flowering',     emoji:'🤍', bg:'#f0f0ff', price:29,  origPrice:null, rating:4.7, reviews:321, care:2, badge:null,          light:'Low Indirect',    water:'Weekly',    humidity:'High',      desc:'Elegant white blooms in low light. Droops dramatically when thirsty — the most honest plant in the shop.' },
   { id:60, name:'Begonia Maculata',           latin:'Begonia maculata',         category:'flowering',     emoji:'🎭', bg:'#ffe8e8', price:44,  origPrice:null, rating:4.7, reviews:118, care:2, badge:'new',         light:'Bright Indirect', water:'Weekly',    humidity:'High',      desc:'Silver-spotted leaves and coral flowers. The polka-dot plant that makes people audibly gasp when they see it.' },
   { id:61, name:'Oxalis Triangularis',        latin:'Oxalis triangularis',      category:'flowering',     emoji:'☘️', bg:'#f5e8ff', price:16,  origPrice:null, rating:4.7, reviews:354, care:1, badge:null,          light:'Bright Indirect', water:'Weekly',    humidity:'Medium',    desc:'Deep purple shamrock leaves that open in sunlight and close at night. Magical to wake up to every morning.' },
   { id:62, name:'Desert Rose',                latin:'Adenium obesum',           category:'flowering',     emoji:'🌹', bg:'#ffe8f0', price:29,  origPrice:null, rating:4.7, reviews:143, care:2, badge:null,          light:'Full Sun',        water:'Bi-weekly', humidity:'Very Low',  desc:'Swollen sculptural trunk crowned with brilliant pink-red flowers. Surreal, stunning, and completely unique.' },
   { id:63, name:'Wax Plant Shooting Stars',   latin:'Hoya multiflora',          category:'flowering',     emoji:'⭐', bg:'#fffff0', price:33,  origPrice:null, rating:4.7, reviews:89,  care:1, badge:'new',         light:'Bright Indirect', water:'Bi-weekly', humidity:'Medium',    desc:'Clusters of star-shaped waxy white flowers with golden centres. Blooms for months — utterly enchanting.' },
-  // LOW MAINTENANCE
   { id:64, name:'Snake Plant',                latin:'Sansevieria trifasciata',  category:'low-maintenance',emoji:'🗡️',bg:'#e8f5e8', price:22,  origPrice:null, rating:4.9, reviews:612, care:1, badge:null,          light:'Any Light',       water:'Monthly',   humidity:'Any',       desc:'Architectural upright leaves. Purifies air, tolerates deep neglect, looks incredible forever. The absolute beginner plant.' },
   { id:65, name:'ZZ Plant',                   latin:'Zamioculcas zamiifolia',   category:'low-maintenance',emoji:'🌱',bg:'#e0f0e0', price:32,  origPrice:null, rating:4.8, reviews:289, care:1, badge:null,          light:'Low Light',       water:'Monthly',   humidity:'Any',       desc:'Virtually indestructible. Glossy waxy leaves stay pristine through neglect and low light. The champion of survival.' },
   { id:66, name:'Cast Iron Plant',            latin:'Aspidistra elatior',       category:'low-maintenance',emoji:'🏋️',bg:'#e8ede8', price:40,  origPrice:null, rating:4.9, reviews:178, care:1, badge:null,          light:'Deep Shade',      water:'Monthly',   humidity:'Any',       desc:'Lives up to its name — survives dark corners, drought, and temperature swings. The ultimate tough plant, no excuses.' },
@@ -176,7 +150,7 @@ const state = {
   searchQuery: '',
   activeCategory: 'all',
   sortBy: 'popular',
-  maxPrice: 300,
+  maxPrice: 200,
   isDark: false,
 };
 
@@ -190,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initTheme();
   updateCartBadge();
+  updateWishlistBadge();
   initScrollBehavior();
-  initCategoryPillsHome();
 });
 
 function loadState() {
@@ -307,10 +281,10 @@ function renderCartSidebar() {
     if (!p) return '';
     const cImgUrl = plantImages[p.id] || '';
     const cImg = cImgUrl
-      ? `<img src="${cImgUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-md)" />`
+      ? `<img src="${cImgUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover" />`
       : p.emoji;
     return `<div class="cart-item">
-      <div class="cart-item-img" style="background:${p.bg};overflow:hidden;padding:0">${cImg}</div>
+      <div class="cart-item-img" style="background:${p.bg}">${cImg}</div>
       <div class="cart-item-details">
         <div class="cart-item-name">${p.name}</div>
         <div class="cart-item-price">$${p.price} each</div>
@@ -337,7 +311,52 @@ function toggleWishlist(productId) {
   if (idx > -1) { state.wishlist.splice(idx, 1); showToast(`💔 Removed from wishlist`); }
   else           { state.wishlist.push(productId); showToast(`❤️ ${product?.name} added to wishlist`); }
   saveState();
+  updateWishlistBadge();
   $$(`[data-wishlist="${productId}"]`).forEach(btn => btn.classList.toggle('wishlisted', state.wishlist.includes(productId)));
+  renderWishlistSidebar();
+}
+
+function updateWishlistBadge() {
+  const total = state.wishlist.length;
+  $$('.wishlist-badge').forEach(b => { b.textContent = total; b.style.display = total > 0 ? 'flex' : 'none'; });
+}
+
+function openWishlist() {
+  $('#wishlistOverlay')?.classList.add('open');
+  renderWishlistSidebar();
+  document.body.style.overflow = 'hidden';
+}
+function closeWishlist() {
+  $('#wishlistOverlay')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderWishlistSidebar() {
+  const body = $('#wishlistBody');
+  if (!body) return;
+  if (state.wishlist.length === 0) {
+    body.innerHTML = `<div class="wishlist-empty"><div class="empty-icon">💔</div><h3>Your wishlist is empty</h3><p>Start adding your favourite plants!</p></div>`;
+    return;
+  }
+  body.innerHTML = state.wishlist.map(id => {
+    const p = products.find(pr => pr.id === id);
+    if (!p) return '';
+    const imgUrl = plantImages[p.id] || '';
+    const imgContent = imgUrl
+      ? `<img src="${imgUrl}" alt="${p.name}" />`
+      : `<span style="font-size:2rem;display:flex;align-items:center;justify-content:center;width:100%;height:100%">${p.emoji}</span>`;
+    return `<div class="wishlist-item">
+      <div class="wishlist-item-img" style="background:${p.bg}">${imgContent}</div>
+      <div class="wishlist-item-details">
+        <div class="wishlist-item-name">${p.name}</div>
+        <div class="wishlist-item-price">$${p.price}</div>
+        <div class="wishlist-item-actions">
+          <button class="wishlist-add-cart" onclick="addToCart(${p.id});closeWishlist()">Add to Cart</button>
+          <button class="wishlist-item-remove" onclick="toggleWishlist(${p.id});renderWishlistSidebar()">Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── Toast ──────────────────────────────────────────────────
@@ -354,20 +373,18 @@ function showToast(msg) {
 // ── Product Card HTML ──────────────────────────────────────
 function productCardHTML(p) {
   const isWished = state.wishlist.includes(p.id);
-  const careDots = [1,2,3].map(n => `<span class="care-dot ${n <= p.care ? 'filled':''}"></span>`).join('');
-  const careLabel = ['Easy','Moderate','Expert'][p.care - 1];
   const badgeMap = { bestseller:'bestseller', sale:'sale', rare:'rare', new:'new-badge' };
   const badgeHTML = p.badge ? `<span class="product-badge product-badge-${badgeMap[p.badge] || 'new-badge'}">${p.badge}</span>` : '';
   const origHTML  = p.origPrice ? `<span class="product-price-original">$${p.origPrice}</span>` : '';
   const imgUrl = plantImages[p.id] || '';
   const imgContent = imgUrl
     ? `<img src="${imgUrl}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" />`
-    : `<span class="product-emoji" aria-hidden="true">${p.emoji}</span>`;
+    : `<span class="product-emoji" aria-hidden="true" style="font-size:4rem;line-height:1">${p.emoji}</span>`;
   return `
     <div class="product-card" onclick="openProductDetail(${p.id})" tabindex="0" role="article" aria-label="${p.name}, $${p.price}">
       <div class="product-img" style="background:${p.bg};overflow:hidden;padding:0;position:relative">
         ${imgContent}
-        <div class="product-badges" style="position:absolute;top:12px;left:12px">${badgeHTML}</div>
+        <div class="product-badges">${badgeHTML}</div>
         <div class="product-actions">
           <button class="product-action-btn ${isWished?'wishlisted':''}" data-wishlist="${p.id}"
             onclick="event.stopPropagation();toggleWishlist(${p.id})" aria-label="Wishlist ${p.name}">
@@ -382,10 +399,6 @@ function productCardHTML(p) {
         <div class="product-category">${p.category}</div>
         <div class="product-name">${p.name}</div>
         <div class="product-latin">${p.latin}</div>
-        <div class="care-level">
-          <div class="care-dots">${careDots}</div>
-          <span class="care-label">${careLabel} care</span>
-        </div>
         <div class="product-rating">
           <span class="stars">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5-Math.round(p.rating))}</span>
           <span class="rating-count">${p.rating} (${p.reviews})</span>
@@ -406,16 +419,15 @@ function openProductDetail(productId) {
   modalQty = 1;
   const modal = $('#productModal');
   if (!modal) return;
-  const careDots = [1,2,3].map(n=>`<span class="care-dot ${n<=p.care?'filled':''}"></span>`).join('');
   const origPrice = p.origPrice ? ` <span style="font-size:1rem;color:var(--text-light);text-decoration:line-through;margin-left:8px">$${p.origPrice}</span>` : '';
   const savings = p.origPrice ? `<span style="font-size:.8rem;background:#fef2f2;color:#dc2626;padding:3px 10px;border-radius:100px;margin-left:8px">Save $${p.origPrice - p.price}</span>` : '';
   const mImgUrl = plantImages[p.id] || '';
   const mImgContent = mImgUrl
-    ? `<img src="${mImgUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius-lg) 0 0 var(--radius-lg)" />`
-    : p.emoji;
+    ? `<img src="${mImgUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block" />`
+    : `<span style="font-size:6rem">${p.emoji}</span>`;
   $('#modalContent').innerHTML = `
     <div class="modal-inner">
-      <div class="modal-img" style="background:${p.bg};overflow:hidden;padding:0" aria-hidden="true">${mImgContent}</div>
+      <div class="modal-img" style="background:${p.bg}">${mImgContent}</div>
       <div class="modal-details">
         <div class="modal-category">🌿 ${p.category}</div>
         <div class="modal-name">${p.name}</div>
@@ -478,16 +490,9 @@ function getFilteredProducts() {
 }
 
 // ── HOME ───────────────────────────────────────────────────
-function initCategoryPillsHome() {
-  $$('.home-cat-pill').forEach(pill => {
-    pill.addEventListener('click', () => { state.activeCategory = pill.dataset.cat; navigateTo('shop'); });
-  });
-}
-
 function renderHome() {
   const el = $('#home-products');
   if (!el) return;
-  // Show 8 bestsellers
   const featured = [...products].sort((a,b) => b.reviews - a.reviews).slice(0, 8);
   el.innerHTML = featured.map(productCardHTML).join('');
 
@@ -504,6 +509,13 @@ function renderHome() {
 }
 
 // ── SHOP ───────────────────────────────────────────────────
+function toggleMobileFilters() {
+  const filters = document.getElementById('shopFilters');
+  const categories = document.getElementById('shopCategories');
+  if (filters) filters.classList.toggle('open');
+  if (categories) categories.classList.toggle('open');
+}
+
 function renderShop() {
   const grid = $('#shop-products');
   if (!grid) return;
@@ -514,9 +526,8 @@ function renderShop() {
 
   grid.innerHTML = filtered.length
     ? filtered.map(productCardHTML).join('')
-    : `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-mid)"><div style="font-size:3rem;margin-bottom:16px">🌱</div><h3 style="font-family:var(--font-display);margin-bottom:8px">No plants found</h3><p>Try adjusting your search or filters.</p><button class="btn btn-outline" style="margin-top:16px" onclick="state.searchQuery='';state.activeCategory='all';state.maxPrice=300;renderShop()">Clear all filters</button></div>`;
+    : `<div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-mid)"><div style="font-size:3rem;margin-bottom:16px">🌱</div><h3 style="font-family:var(--font-display);margin-bottom:8px">No plants found</h3><p>Try adjusting your search or filters.</p><button class="btn btn-outline" style="margin-top:16px" onclick="state.searchQuery='';state.activeCategory='all';state.maxPrice=200;renderShop()">Clear all filters</button></div>`;
 
-  // Wire search
   const shopSearch = $('#shopSearch');
   if (shopSearch && !shopSearch._wired) {
     shopSearch._wired = true;
@@ -524,7 +535,6 @@ function renderShop() {
     shopSearch.addEventListener('input', e => { state.searchQuery = e.target.value; renderShop(); });
   } else if (shopSearch) { shopSearch.value = state.searchQuery; }
 
-  // Sort
   const sort = $('#sortSelect');
   if (sort && !sort._wired) {
     sort._wired = true;
@@ -532,7 +542,6 @@ function renderShop() {
   }
   if (sort) sort.value = state.sortBy;
 
-  // Category pills
   $$('.cat-pill').forEach(pill => {
     pill.classList.toggle('active', pill.dataset.cat === state.activeCategory);
     if (!pill._wired) {
@@ -541,17 +550,15 @@ function renderShop() {
     }
   });
 
-  // Price slider
   const slider = $('#priceSlider');
   if (slider && !slider._wired) {
     slider._wired = true;
-    slider.max = 300; slider.value = state.maxPrice;
+    slider.max = 200; slider.value = state.maxPrice;
     const label = $('#priceLabel');
     if (label) label.textContent = `$${state.maxPrice}`;
     slider.addEventListener('input', e => { state.maxPrice = parseInt(e.target.value); if (label) label.textContent = `$${state.maxPrice}`; renderShop(); });
   }
 
-  // Filter checkboxes (visual only)
   $$('.filter-option').forEach(opt => {
     if (!opt._wired) { opt._wired = true; opt.addEventListener('click', () => opt.classList.toggle('checked')); }
   });
@@ -562,15 +569,36 @@ function initContactForm() {
   const form = $('#contactForm');
   if (form && !form._wired) {
     form._wired = true;
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const btn = form.querySelector('button[type=submit]');
-      btn.textContent = '✅ Sent!';
-      setTimeout(() => { btn.textContent = 'Send Message 🌿'; }, 3000);
-      showToast('🌿 Message sent! We\'ll reply within 24 hours.');
-      form.reset();
-    });
   }
+}
+
+// ── WhatsApp Redirect ─────────────────────────────────────
+function sendWhatsApp(e) {
+  e.preventDefault();
+  const firstName = document.getElementById('firstName')?.value || '';
+  const lastName = document.getElementById('lastName')?.value || '';
+  const email = document.getElementById('email')?.value || '';
+  const subject = document.getElementById('subject')?.value || '';
+  const message = document.getElementById('message')?.value || '';
+
+  if (!firstName) {
+    showToast('⚠️ Please enter your first name.');
+    return;
+  }
+  if (!email) {
+    showToast('⚠️ Please enter your email.');
+    return;
+  }
+  if (!message) {
+    showToast('⚠️ Please write a message.');
+    return;
+  }
+
+  const fullName = firstName + (lastName ? ' ' + lastName : '');
+  const text = `Name: ${fullName}%0AEmail: ${email}%0ASubject: ${subject}%0A%0AMessage:%0A${message}`;
+  const phone = '923121146465';
+  window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+  showToast('📱 Redirecting to WhatsApp...');
 }
 
 // ── LEGAL PAGES ────────────────────────────────────────────
@@ -593,11 +621,16 @@ function runFakeTracker() {
   if (!result) return;
   if (!val) { result.innerHTML = `<p style="color:#dc2626;font-size:.875rem">Please enter your order number.</p>`; return; }
 
-  // Every valid input shows tracking — hash to determine status
+  // Check if valid tracking ID (minimum 6 characters)
+  if (val.length < 6) {
+    result.innerHTML = `<p style="color:#dc2626;font-size:.875rem">❌ Invalid tracking ID. Please check and try again.</p>`;
+    return;
+  }
+
+  // Generate fake tracking data based on input
   const hash = val.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
   const isDelivered = hash % 3 === 0;
   const isInTransit = !isDelivered && hash % 3 === 1;
-  // else: packed/dispatched stage
 
   const today = new Date();
   const fmt = d => d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
@@ -683,14 +716,14 @@ function openTermsOfService() {
 
 function showInfoModal(title, content) {
   const modal = document.createElement('div');
-  modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .2s ease';
+  modal.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease';
   modal.innerHTML = `
     <div style="background:var(--bg);border-radius:20px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.3);position:relative">
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 28px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:1;border-radius:20px 20px 0 0">
-        <h2 style="font-family:var(--font-display);font-size:1.5rem;font-weight:400">${title}</h2>
-        <button onclick="this.closest('div[style*=fixed]').remove()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-card);border:none;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center" aria-label="Close">✕</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:1;border-radius:20px 20px 0 0">
+        <h2 style="font-family:var(--font-display);font-size:1.3rem;font-weight:400">${title}</h2>
+        <button onclick="this.closest('div[style*=fixed]').remove()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-card);border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center" aria-label="Close">✕</button>
       </div>
-      <div style="padding:28px">${content}</div>
+      <div style="padding:24px">${content}</div>
     </div>`;
   modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   document.body.appendChild(modal);
