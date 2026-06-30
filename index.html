@@ -35,8 +35,9 @@
       </button>
 
       <!-- Wishlist -->
-      <button class="nav-btn-icon" onclick="showToast('❤️ ' + state.wishlist.length + ' items in wishlist')" aria-label="Wishlist">
+      <button class="nav-btn-icon" onclick="openWishlist()" aria-label="Wishlist">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="badge wishlist-badge" style="display:none" aria-live="polite">0</span>
       </button>
 
       <!-- Cart -->
@@ -123,17 +124,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input type="search" id="homeSearch" placeholder="Search plants by name, type, care level…" aria-label="Search plants" />
         <button class="btn btn-primary" id="homeSearchBtn" aria-label="Search">Search</button>
-      </div>
-      <div class="categories" role="list" aria-label="Categories">
-        <button class="category-pill home-cat-pill active" data-cat="all" role="listitem">🌿 All Plants</button>
-        <button class="category-pill home-cat-pill" data-cat="flowers" role="listitem">🌹 Flowers</button>
-        <button class="category-pill home-cat-pill" data-cat="tropical" role="listitem">🌺 Tropical</button>
-        <button class="category-pill home-cat-pill" data-cat="trailing" role="listitem">🍃 Trailing</button>
-        <button class="category-pill home-cat-pill" data-cat="statement" role="listitem">🌳 Statement</button>
-        <button class="category-pill home-cat-pill" data-cat="small" role="listitem">🪴 Small</button>
-        <button class="category-pill home-cat-pill" data-cat="rare" role="listitem">💎 Rare</button>
-        <button class="category-pill home-cat-pill" data-cat="succulent" role="listitem">🌵 Succulents</button>
-        <button class="category-pill home-cat-pill" data-cat="low-maintenance" role="listitem">😌 Easy Care</button>
       </div>
     </div>
   </section>
@@ -328,23 +318,26 @@
         </select>
       </div>
 
-      <!-- Category Pills -->
-      <div class="categories" style="justify-content:flex-start;margin-bottom:32px" role="list" aria-label="Filter by category">
-        <button class="category-pill cat-pill active" data-cat="all">All</button>
-        <button class="category-pill cat-pill" data-cat="flowers">🌹 Flowers</button>
-        <button class="category-pill cat-pill" data-cat="tropical">🌺 Tropical</button>
-        <button class="category-pill cat-pill" data-cat="trailing">🍃 Trailing</button>
-        <button class="category-pill cat-pill" data-cat="statement">🌳 Statement</button>
-        <button class="category-pill cat-pill" data-cat="small">🪴 Small</button>
-        <button class="category-pill cat-pill" data-cat="rare">💎 Rare</button>
-        <button class="category-pill cat-pill" data-cat="succulent">🌵 Succulents</button>
-        <button class="category-pill cat-pill" data-cat="flowering">🤍 Flowering</button>
-        <button class="category-pill cat-pill" data-cat="low-maintenance">😌 Easy Care</button>
+      <!-- Category Pills - Hidden on mobile, shown as filter button -->
+      <div class="category-filter-wrapper">
+        <button class="btn btn-outline filter-toggle-btn" id="filterToggleBtn" onclick="toggleMobileFilters()">☰ Filters</button>
+        <div class="categories categories-shop" id="shopCategories" role="list" aria-label="Filter by category">
+          <button class="category-pill cat-pill active" data-cat="all">All</button>
+          <button class="category-pill cat-pill" data-cat="flowers">🌹 Flowers</button>
+          <button class="category-pill cat-pill" data-cat="tropical">🌺 Tropical</button>
+          <button class="category-pill cat-pill" data-cat="trailing">🍃 Trailing</button>
+          <button class="category-pill cat-pill" data-cat="statement">🌳 Statement</button>
+          <button class="category-pill cat-pill" data-cat="small">🪴 Small</button>
+          <button class="category-pill cat-pill" data-cat="rare">💎 Rare</button>
+          <button class="category-pill cat-pill" data-cat="succulent">🌵 Succulents</button>
+          <button class="category-pill cat-pill" data-cat="flowering">🤍 Flowering</button>
+          <button class="category-pill cat-pill" data-cat="low-maintenance">😌 Easy Care</button>
+        </div>
       </div>
 
       <div class="shop-layout">
         <!-- Sidebar Filters -->
-        <aside class="shop-filters" aria-label="Filters">
+        <aside class="shop-filters" id="shopFilters" aria-label="Filters">
           <div class="filter-card">
             <div class="filter-title">Price Range</div>
             <div class="price-range">
@@ -520,21 +513,21 @@
             <div class="contact-detail-icon" aria-hidden="true">📍</div>
             <div>
               <h4>Visit Us</h4>
-              <p>14 Ferndale Road<br>London, E8 4JR</p>
+              <p>Karachi, Pakistan</p>
             </div>
           </div>
           <div class="contact-detail">
             <div class="contact-detail-icon" aria-hidden="true">✉️</div>
             <div>
               <h4>Email</h4>
-              <p>hello@verdant.co</p>
+              <p>saadiakmil3400@gmail.com</p>
             </div>
           </div>
           <div class="contact-detail">
             <div class="contact-detail-icon" aria-hidden="true">📞</div>
             <div>
               <h4>Phone</h4>
-              <p>+44 20 7946 0123</p>
+              <p>0312 1146465</p>
             </div>
           </div>
           <div class="contact-detail">
@@ -546,9 +539,7 @@
           </div>
 
           <div class="social-links" style="margin-top:24px">
-            <a class="social-link" href="#" aria-label="Instagram">IG</a>
-            <a class="social-link" href="#" aria-label="Pinterest">Pi</a>
-            <a class="social-link" href="#" aria-label="TikTok">TK</a>
+            <!-- Removed IG, Pi, TK as requested -->
           </div>
         </div>
 
@@ -586,7 +577,7 @@
               <label for="message">Message</label>
               <textarea class="form-control" id="message" rows="5" placeholder="Tell us what's on your mind…" required aria-required="true"></textarea>
             </div>
-            <button class="btn btn-terra" type="submit" style="width:100%;justify-content:center">Send Message 🌿</button>
+            <button class="btn btn-terra" type="submit" style="width:100%;justify-content:center" onclick="sendWhatsApp(event)">Send Message 🌿</button>
           </form>
         </div>
 
@@ -606,33 +597,15 @@
         <div class="nav-logo" style="cursor:default;margin-bottom:14px;font-size:1.6rem"><span class="logo-leaf" aria-hidden="true">🌿</span> Verdant</div>
         <p class="footer-tagline">Premium indoor plants, sustainably sourced and lovingly delivered to your door.</p>
         <div class="footer-social">
-          <a class="social-link" href="#" aria-label="Instagram">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a class="social-link" href="#" aria-label="Pinterest">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.76 1.22-5.14 1.22-5.14s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.84 0 3.08-2.37 3.08-5.18 0-2.14-1.44-3.74-4.04-3.74-2.95 0-4.78 2.21-4.78 4.67 0 .85.25 1.44.64 1.9.18.21.2.3.14.54l-.23.92c-.07.3-.29.4-.53.29C5.43 14.4 4.5 12.61 4.5 10.55c0-3.56 3.01-7.84 8.97-7.84 4.8 0 7.96 3.48 7.96 7.22 0 4.95-2.75 8.64-6.81 8.64-1.36 0-2.64-.73-3.08-1.56l-.84 3.22c-.28 1.06-1.04 2.38-1.58 3.2.6.18 1.22.27 1.88.27 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-          </a>
-          <a class="social-link" href="#" aria-label="TikTok">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
-          </a>
+          <a class="social-link" href="#" aria-label="WhatsApp" title="Link daalna hai">📱 WhatsApp</a>
+          <a class="social-link" href="#" aria-label="Instagram" title="Link daalna hai">📸 Instagram</a>
+          <a class="social-link" href="#" aria-label="Facebook" title="Link daalna hai">👍 Facebook</a>
         </div>
       </div>
 
-      <!-- Shop Column -->
+      <!-- Quick Links Column - No Shop/Newsletter on desktop now -->
       <div class="footer-col">
-        <h4 class="footer-col-title">Shop</h4>
-        <ul class="footer-col-links">
-          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">All Plants</a></li>
-          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Tropical</a></li>
-          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Rare & Collectors</a></li>
-          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Easy Care</a></li>
-          <li><a href="#" onclick="navigateTo('shop')" class="footer-link">Succulents</a></li>
-        </ul>
-      </div>
-
-      <!-- Help Column -->
-      <div class="footer-col">
-        <h4 class="footer-col-title">Help</h4>
+        <h4 class="footer-col-title">Quick Links</h4>
         <ul class="footer-col-links">
           <li><a href="#" onclick="openTrackOrder()" class="footer-link">Track Your Order</a></li>
           <li><a href="#" onclick="navigateTo('contact')" class="footer-link">Contact Us</a></li>
@@ -640,16 +613,6 @@
           <li><a href="#" onclick="openTermsOfService();return false;" class="footer-link">Terms of Service</a></li>
           <li><a href="#" onclick="navigateTo('about')" class="footer-link">Our Story</a></li>
         </ul>
-      </div>
-
-      <!-- Newsletter Column -->
-      <div class="footer-col footer-newsletter-col">
-        <h4 class="footer-col-title">Stay Green</h4>
-        <p class="footer-newsletter-desc">Monthly plant tips, rare drops & growing guides. No spam, ever.</p>
-        <form class="footer-newsletter-form" onsubmit="event.preventDefault();showToast('🌱 Welcome to the Verdant community!')" novalidate>
-          <input type="email" class="footer-newsletter-input" placeholder="your@email.com" aria-label="Email for newsletter" required />
-          <button class="btn btn-terra" type="submit" style="width:100%;justify-content:center;padding:12px 20px">Subscribe →</button>
-        </form>
       </div>
     </div>
 
@@ -682,6 +645,26 @@
       </div>
     </div>
     <div class="cart-footer" id="cartFooter"></div>
+  </div>
+</div>
+
+<!-- ══ WISHLIST SIDEBAR ═══════════════════════════════════ -->
+<div class="wishlist-overlay" id="wishlistOverlay" role="dialog" aria-label="Wishlist" aria-modal="true">
+  <div class="wishlist-backdrop" onclick="closeWishlist()"></div>
+  <div class="wishlist-sidebar">
+    <div class="wishlist-header">
+      <h2 class="wishlist-title">Your Wishlist ❤️</h2>
+      <button class="wishlist-close" onclick="closeWishlist()" aria-label="Close wishlist">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="wishlist-body" id="wishlistBody">
+      <div class="wishlist-empty">
+        <div class="empty-icon">💔</div>
+        <h3>Your wishlist is empty</h3>
+        <p>Start adding your favourite plants!</p>
+      </div>
+    </div>
   </div>
 </div>
 
