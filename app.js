@@ -419,8 +419,8 @@ function openProductDetail(productId) {
   modalQty = 1;
   const modal = $('#productModal');
   if (!modal) return;
-  const origPrice = p.origPrice ? ` <span style="font-size:1rem;color:var(--text-light);text-decoration:line-through;margin-left:8px">$${p.origPrice}</span>` : '';
-  const savings = p.origPrice ? `<span style="font-size:.8rem;background:#fef2f2;color:#dc2626;padding:3px 10px;border-radius:100px;margin-left:8px">Save $${p.origPrice - p.price}</span>` : '';
+  const origPrice = p.origPrice ? ` <span style="font-size:.9rem;color:var(--text-light);text-decoration:line-through;margin-left:6px">$${p.origPrice}</span>` : '';
+  const savings = p.origPrice ? `<span style="font-size:.7rem;background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:100px;margin-left:6px">Save $${p.origPrice - p.price}</span>` : '';
   const mImgUrl = plantImages[p.id] || '';
   const mImgContent = mImgUrl
     ? `<img src="${mImgUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block" />`
@@ -434,29 +434,29 @@ function openProductDetail(productId) {
         <div class="modal-latin">${p.latin}</div>
         <div class="modal-rating">
           <span class="stars">${'★'.repeat(Math.round(p.rating))}</span>
-          <span style="font-size:.85rem;color:var(--text-mid)">${p.rating} · ${p.reviews} reviews</span>
+          <span style="font-size:.8rem;color:var(--text-mid)">${p.rating} · ${p.reviews} reviews</span>
         </div>
         <div class="modal-price">$${p.price}${origPrice}${savings}</div>
         <p class="modal-desc">${p.desc}</p>
         <div class="modal-care-tags">
           <span class="care-tag">☀️ ${p.light}</span>
           <span class="care-tag">💧 ${p.water}</span>
-          <span class="care-tag">🌫️ ${p.humidity} humidity</span>
-          <span class="care-tag">🌱 ${['Easy','Moderate','Expert'][p.care-1]} care</span>
+          <span class="care-tag">🌫️ ${p.humidity}</span>
+          <span class="care-tag">🌱 ${['Easy','Moderate','Expert'][p.care-1]}</span>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding:14px;background:var(--bg-card);border-radius:10px;border:1px solid var(--border)">
-          <span style="font-size:.8rem;color:var(--text-mid);font-weight:500">Quantity</span>
-          <div style="display:flex;align-items:center;gap:14px;margin-left:auto">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px;background:var(--bg-card);border-radius:8px;border:1px solid var(--border)">
+          <span style="font-size:.75rem;color:var(--text-mid);font-weight:500">Qty</span>
+          <div style="display:flex;align-items:center;gap:10px;margin-left:auto">
             <button class="qty-btn" onclick="adjustModalQty(-1)">−</button>
-            <span class="qty-num" id="modalQtyNum">1</span>
+            <span class="qty-num" id="modalQtyNum" style="font-size:.85rem">1</span>
             <button class="qty-btn" onclick="adjustModalQty(1)">+</button>
           </div>
         </div>
         <div class="modal-actions">
-          <button class="btn btn-terra" onclick="addToCartFromModal(${p.id})" style="flex:1;justify-content:center">🛒 Add to Cart</button>
-          <button class="btn btn-outline" id="modalWishBtn" onclick="toggleWishlist(${p.id});updateModalWishBtn(${p.id})">${state.wishlist.includes(p.id)?'❤️ Wishlisted':'🤍 Wishlist'}</button>
+          <button class="btn btn-terra" onclick="addToCartFromModal(${p.id})" style="flex:1;justify-content:center;font-size:.8rem;padding:10px 16px">🛒 Add to Cart</button>
+          <button class="btn btn-outline" id="modalWishBtn" onclick="toggleWishlist(${p.id});updateModalWishBtn(${p.id})" style="font-size:.8rem;padding:10px 16px">${state.wishlist.includes(p.id)?'❤️':'🤍'}</button>
         </div>
-        <p style="font-size:.75rem;color:var(--text-light);margin-top:12px;text-align:center">🚚 Free shipping on orders over $75 &nbsp;·&nbsp; 🌱 30-day happiness guarantee</p>
+        <p style="font-size:.65rem;color:var(--text-light);margin-top:10px;text-align:center">🚚 Free shipping $75+ · 🌱 30-day guarantee</p>
       </div>
     </div>`;
   modal.classList.add('open');
@@ -464,7 +464,7 @@ function openProductDetail(productId) {
 }
 function updateModalWishBtn(id) {
   const btn = $('#modalWishBtn');
-  if (btn) btn.textContent = state.wishlist.includes(id) ? '❤️ Wishlisted' : '🤍 Wishlist';
+  if (btn) btn.textContent = state.wishlist.includes(id) ? '❤️' : '🤍';
 }
 function adjustModalQty(delta) {
   modalQty = Math.max(1, modalQty + delta);
