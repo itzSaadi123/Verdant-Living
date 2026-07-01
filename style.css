@@ -31,7 +31,6 @@
 
   --transition: .25s cubic-bezier(.4,0,.2,1);
 
-  /* Dark mode */
   --bg:       var(--ivory);
   --bg-card:  var(--white);
   --bg-nav:   var(--forest);
@@ -519,19 +518,32 @@ input, textarea, select { font-family: inherit; }
 .footer-main {
   display: grid;
   grid-template-columns: 1.3fr 1fr 1fr;
-  gap: 40px;
+  gap: 32px 40px;
   margin-bottom: 40px;
 }
-.footer-brand { display: flex; flex-direction: column; }
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+}
+
 .footer-tagline {
   font-size: .8rem; color: rgba(245,240,232,.5);
   line-height: 1.6; max-width: 260px; margin-bottom: 20px;
 }
-.footer-social { 
-  display: flex; 
+
+/* Social icons ab brand ke neechay */
+.footer-social {
+  display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 4px;
 }
+
+.footer-main > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+.footer-main > div:nth-child(3) { grid-column: 3; grid-row: 1; }
 
 .footer-col-title {
   font-size: .65rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
@@ -542,20 +554,20 @@ input, textarea, select { font-family: inherit; }
   flex-direction: column; 
   gap: 12px;
 }
-.footer-quick-links {
+.footer-quick-links-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
 }
-.footer-quick-links li {
+.footer-quick-links-grid li {
   display: inline-block;
 }
-.footer-quick-links .footer-link {
+.footer-quick-links-grid .footer-link {
   font-size: .8rem;
   color: rgba(245,240,232,.6);
   transition: color var(--transition);
 }
-.footer-quick-links .footer-link:hover { color: var(--ivory); }
+.footer-quick-links-grid .footer-link:hover { color: var(--ivory); }
 
 .footer-link {
   font-size: .8rem; color: rgba(245,240,232,.6); transition: color var(--transition);
@@ -1046,9 +1058,24 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   .section { padding: 40px 0; }
   .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .team-grid { grid-template-columns: 1fr; }
-  .footer-main { grid-template-columns: 1fr; gap: 24px; }
+  
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .footer-brand,
+  .footer-main > div:nth-child(2),
+  .footer-main > div:nth-child(3) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .footer-social {
+    grid-column: 1;
+    grid-row: auto;
+    justify-content: flex-start;
+  }
+  
   .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
-  .footer-simple { flex-direction: column; gap: 20px; }
   .newsletter { padding: 32px 20px; }
   .newsletter-form { flex-direction: column; }
   .modal-inner { grid-template-columns: 1fr; }
@@ -1078,13 +1105,10 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   .checkout-summary-total { font-size: 1rem; }
   .checkout-submit { padding: 11px; font-size: .9rem; }
   
-  /* Hide latin names and care on mobile */
   .product-latin { display: none; }
   .care-level { display: none; }
   .modal-latin { display: none; }
   .modal-care-tags { display: none; }
-  
-  /* Hide hero plant card on mobile */
   .hero-plant-card { display: none; }
   
   .hero {
@@ -1122,12 +1146,14 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   .theme-toggle.dark .theme-toggle-knob { transform: translateX(20px); }
   .mobile-nav { top: 72px; }
   
-  .footer-quick-links {
-    flex-direction: column;
-    gap: 8px;
+  .footer-quick-links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
   }
   .footer-social {
-    justify-content: center;
+    justify-content: flex-start;
+    margin-top: 4px;
   }
 }
 
