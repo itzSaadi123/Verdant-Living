@@ -416,74 +416,97 @@ function initCheckout() {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
-      const name = document.getElementById('checkFullName').value.trim();
-      const phone = document.getElementById('checkPhone').value.trim();
-      const email = document.getElementById('checkEmail').value.trim();
-      const address = document.getElementById('checkAddress').value.trim();
-      const city = document.getElementById('checkCity').value.trim();
-
-      if (!name || !phone || !email || !address || !city) {
-        showToast('⚠️ Please fill in all required fields.');
-        return;
-      }
-
-      // ── Order ID Generate ──
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let orderId = '';
-      for (let i = 0; i < 8; i++) {
-        orderId += chars.charAt(Math.floor(Math.random() * chars.length));
+      // ── Button ko disable karein (duplicate orders rokne ke liye) ──
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Processing...';
       }
       
-      // ── Order Items Format ──
-      const orderItems = state.cart.map(item => {
-        const p = products.find(pr => pr.id === item.id);
-        return {
-          id: p.id,
-          name: p.name,
-          quantity: item.qty,
-          price: p.price,
-          total: p.price * item.qty
+      try {
+        const name = document.getElementById('checkFullName').value.trim();
+        const phone = document.getElementById('checkPhone').value.trim();
+        const email = document.getElementById('checkEmail').value.trim();
+        const address = document.getElementById('checkAddress').value.trim();
+        const city = document.getElementById('checkCity').value.trim();
+
+        if (!name || !phone || !email || !address || !city) {
+          showToast('⚠️ Please fill in all required fields.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Place Order 🌿';
+          }
+          return;
+        }
+
+        // ── Order ID Generate ──
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let orderId = '';
+        for (let i = 0; i < 8; i++) {
+          orderId += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        
+        // ── Order Items Format ──
+        const orderItems = state.cart.map(item => {
+          const p = products.find(pr => pr.id === item.id);
+          return {
+            id: p.id,
+            name: p.name,
+            quantity: item.qty,
+            price: p.price,
+            total: p.price * item.qty
+          };
+        });
+        
+        const subtotal = getCartTotal();
+        const FREE_SHIPPING_THRESHOLD = 70;
+        const SHIPPING_FEE = 20;
+        const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+        const grandTotal = subtotal + shipping;
+        
+        // ── Order Data for Google Sheets ──
+        const orderData = {
+          orderId: orderId,
+          timestamp: new Date().toISOString(),
+          customerName: name,
+          customerPhone: phone,
+          customerEmail: email,
+          deliveryAddress: address,
+          city: city,
+          items: orderItems,
+          subtotal: subtotal,
+          shipping: shipping,
+          grandTotal: grandTotal,
+          paymentMethod: 'Cash on Delivery',
+          status: 'Pending'
         };
-      });
-      
-      const subtotal = getCartTotal();
-      const FREE_SHIPPING_THRESHOLD = 70;
-      const SHIPPING_FEE = 20;
-      const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-      const grandTotal = subtotal + shipping;
-      
-      // ── Order Data for Google Sheets ──
-      const orderData = {
-        orderId: orderId,
-        timestamp: new Date().toISOString(),
-        customerName: name,
-        customerPhone: phone,
-        customerEmail: email,
-        deliveryAddress: address,
-        city: city,
-        items: orderItems,
-        subtotal: subtotal,
-        shipping: shipping,
-        grandTotal: grandTotal,
-        paymentMethod: 'Cash on Delivery',
-        status: 'Pending'
-      };
-      
-      // ── Save to Google Sheets ──
-      await saveOrderToSheet(orderData);
-      
-      // ── Show Confirmation ──
-      document.getElementById('checkoutContent').style.display = 'none';
-      document.getElementById('checkoutConfirmation').style.display = 'block';
-      document.getElementById('orderIdDisplay').textContent = 'Order #: ' + orderId;
-      
-      // ── Clear Cart ──
-      state.cart = [];
-      saveState();
-      updateCartBadge();
-      renderCartSidebar();
-      
-      showToast('🎉 Order placed successfully! Order #' + orderId);
+        
+        // ── Save to Google Sheets ──
+        await saveOrderToSheet(orderData);
+        
+        // ── Show Confirmation ──
+        document.getElementById('checkoutContent').style.display = 'none';
+        document.getElementById('checkoutConfirmation').style.display = 'block';
+        document.getElementById('orderIdDisplay').textContent = 'Order #: ' + orderId;
+        
+        // ── Clear Cart ──
+        state.cart = [];
+        saveState();
+        updateCartBadge();
+        renderCartSidebar();
+        
+        showToast('🎉 Order placed successfully! Order #' + orderId);
+        
+      } catch (error) {
+        console.error('Order error:', error);
+        showToast('⚠️ Something went wrong. Please try again.');
+      } finally {
+        // ── Button wapas enable karein ──
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Place Order 🌿';
+        }
+      }
     });
   }
 }
