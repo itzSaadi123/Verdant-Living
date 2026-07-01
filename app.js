@@ -308,7 +308,7 @@ function renderCartSidebar() {
   const total = getCartTotal();
   if (foot) foot.innerHTML = `
     <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal (${state.cart.reduce((s,i)=>s+i.qty,0)} items)</span><span class="cart-subtotal-value">$${total.toFixed(2)}</span></div>
-    <p class="cart-shipping-note">🌱 Free shipping on orders over $75</p>
+    <p class="cart-shipping-note">🌱 Free shipping on orders over $20</p>
     <button class="btn btn-terra cart-checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>`;
 }
 
@@ -440,10 +440,15 @@ function updateCheckoutSummary() {
   if (!summary) return;
   const total = getCartTotal();
   const items = state.cart.reduce((s, i) => s + i.qty, 0);
+  const FREE_SHIPPING_THRESHOLD = 20;
+  const SHIPPING_FEE = 5;
+  const shipping = total >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shippingHTML = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+  const grandTotal = total + shipping;
   summary.innerHTML = `
     <div class="checkout-summary-row"><span>Items (${items})</span><span>$${total.toFixed(2)}</span></div>
-    <div class="checkout-summary-row"><span>Shipping</span><span>Free</span></div>
-    <div class="checkout-summary-row checkout-summary-total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+    <div class="checkout-summary-row"><span>Shipping</span><span>${shippingHTML}</span></div>
+    <div class="checkout-summary-row checkout-summary-total"><span>Total</span><span>$${grandTotal.toFixed(2)}</span></div>
   `;
 }
 
@@ -544,7 +549,7 @@ function openProductDetail(productId) {
           <button class="btn btn-terra" onclick="addToCartFromModal(${p.id})" style="flex:1;justify-content:center;font-size:.8rem;padding:10px 16px">🛒 Add to Cart</button>
           <button class="btn btn-outline" id="modalWishBtn" onclick="toggleWishlist(${p.id});updateModalWishBtn(${p.id})" style="font-size:.8rem;padding:10px 16px">${state.wishlist.includes(p.id)?'❤️':'🤍'}</button>
         </div>
-        <p style="font-size:.65rem;color:var(--text-light);margin-top:10px;text-align:center">🚚 Free shipping $75+ · 🌱 30-day guarantee</p>
+        <p style="font-size:.65rem;color:var(--text-light);margin-top:10px;text-align:center">🚚 Free shipping $20+ · 🌱 30-day guarantee</p>
       </div>
     </div>`;
   modal.classList.add('open');
@@ -791,7 +796,7 @@ function openTermsOfService() {
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">1. Orders & Payment</h4>
       <p style="margin-bottom:12px">Orders are confirmed once payment is received. We accept all major credit cards and PayPal. Prices are in USD and include VAT where applicable. We reserve the right to cancel orders if plants become unavailable.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">2. Delivery</h4>
-      <p style="margin-bottom:12px">We deliver UK-wide within 2-5 business days. Free shipping on orders over $75. We are not responsible for delays caused by couriers or adverse weather conditions affecting live plants.</p>
+      <p style="margin-bottom:12px">We deliver UK-wide within 2-5 business days. Free shipping on orders over $20. We are not responsible for delays caused by couriers or adverse weather conditions affecting live plants.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">3. Our 30-Day Guarantee</h4>
       <p style="margin-bottom:12px">If your plant arrives damaged or dies within 30 days despite following our care guide, we'll replace it free of charge. Simply email a photo to <strong>hello@verdant.co</strong> within 30 days of delivery.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">4. Returns</h4>
