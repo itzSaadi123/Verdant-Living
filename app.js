@@ -195,12 +195,15 @@ function initNav() {
       toggle.setAttribute('aria-expanded', open);
     });
   }
-  // Create an initial history entry for the starting page so the very
-  // first "back" press has somewhere in-site to land on.
-  history.replaceState({ page: state.currentPage || 'home' }, '', '#' + (state.currentPage || 'home'));
+  
+  // Page refresh fix: current page ko restore karo
+  const hash = window.location.hash.replace('#', '') || 'home';
+  const validPages = ['home', 'shop', 'about', 'contact'];
+  const startPage = validPages.includes(hash) ? hash : 'home';
+  
+  history.replaceState({ page: startPage }, '', '#' + startPage);
+  goToPage(startPage);
 
-  // Handle browser/mobile back & forward buttons: move between in-site
-  // pages instead of leaving the site.
   window.addEventListener('popstate', e => {
     const page = (e.state && e.state.page) || 'home';
     goToPage(page);
@@ -208,15 +211,12 @@ function initNav() {
 }
 
 function navigateTo(page) {
-  // Don't push a duplicate entry if we're already on this page
   if (state.currentPage !== page) {
     history.pushState({ page }, '', '#' + page);
   }
   goToPage(page);
 }
 
-// Updates the visible page/UI without touching browser history.
-// Used both by navigateTo() and by the popstate (back/forward) handler.
 function goToPage(page) {
   state.currentPage = page;
   $$('.page').forEach(p => p.classList.remove('active'));
@@ -328,7 +328,7 @@ function renderCartSidebar() {
   const total = getCartTotal();
   if (foot) foot.innerHTML = `
     <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal (${state.cart.reduce((s,i)=>s+i.qty,0)} items)</span><span class="cart-subtotal-value">$${total.toFixed(2)}</span></div>
-    <p class="cart-shipping-note">🌱 Free shipping on orders over $20</p>
+    <p class="cart-shipping-note">🌱 Free shipping on orders over $70</p>
     <button class="btn btn-terra cart-checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>`;
 }
 
@@ -404,19 +404,16 @@ function initCheckout() {
         return;
       }
 
-      // Generate unique order ID
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let orderId = '';
       for (let i = 0; i < 8; i++) {
         orderId += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       
-      // Show confirmation
       document.getElementById('checkoutContent').style.display = 'none';
       document.getElementById('checkoutConfirmation').style.display = 'block';
       document.getElementById('orderIdDisplay').textContent = 'Order #: ' + orderId;
       
-      // Clear cart
       state.cart = [];
       saveState();
       updateCartBadge();
@@ -436,13 +433,10 @@ function openCheckout() {
   if (overlay) {
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    // Reset form
     document.getElementById('checkoutContent').style.display = 'block';
     document.getElementById('checkoutConfirmation').style.display = 'none';
     document.getElementById('checkoutForm').reset();
-    // Make sure COD is NOT checked by default
     document.getElementById('cod').checked = false;
-    // Update summary
     updateCheckoutSummary();
   }
 }
@@ -460,8 +454,9 @@ function updateCheckoutSummary() {
   if (!summary) return;
   const total = getCartTotal();
   const items = state.cart.reduce((s, i) => s + i.qty, 0);
-  const FREE_SHIPPING_THRESHOLD = 20;
-  const SHIPPING_FEE = 5;
+  // ✅ FIX: Free shipping over $70, otherwise $20
+  const FREE_SHIPPING_THRESHOLD = 70;
+  const SHIPPING_FEE = 20;
   const shipping = total >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
   const shippingHTML = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
   const grandTotal = total + shipping;
@@ -569,7 +564,7 @@ function openProductDetail(productId) {
           <button class="btn btn-terra" onclick="addToCartFromModal(${p.id})" style="flex:1;justify-content:center;font-size:.8rem;padding:10px 16px">🛒 Add to Cart</button>
           <button class="btn btn-outline" id="modalWishBtn" onclick="toggleWishlist(${p.id});updateModalWishBtn(${p.id})" style="font-size:.8rem;padding:10px 16px">${state.wishlist.includes(p.id)?'❤️':'🤍'}</button>
         </div>
-        <p style="font-size:.65rem;color:var(--text-light);margin-top:10px;text-align:center">🚚 Free shipping $20+ · 🌱 30-day guarantee</p>
+        <p style="font-size:.65rem;color:var(--text-light);margin-top:10px;text-align:center">🚚 Free shipping $70+ · 🌱 30-day guarantee</p>
       </div>
     </div>`;
   modal.classList.add('open');
@@ -734,13 +729,11 @@ function runFakeTracker() {
   if (!result) return;
   if (!val) { result.innerHTML = `<p style="color:#dc2626;font-size:.875rem">Please enter your order number.</p>`; return; }
 
-  // Check if valid tracking ID (minimum 6 characters)
   if (val.length < 6) {
     result.innerHTML = `<p style="color:#dc2626;font-size:.875rem">❌ Invalid tracking ID. Please check and try again.</p>`;
     return;
   }
 
-  // Generate fake tracking data based on input
   const hash = val.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
   const isDelivered = hash % 3 === 0;
   const isInTransit = !isDelivered && hash % 3 === 1;
@@ -816,7 +809,7 @@ function openTermsOfService() {
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">1. Orders & Payment</h4>
       <p style="margin-bottom:12px">Orders are confirmed once payment is received. We accept all major credit cards and PayPal. Prices are in USD and include VAT where applicable. We reserve the right to cancel orders if plants become unavailable.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">2. Delivery</h4>
-      <p style="margin-bottom:12px">We deliver UK-wide within 2-5 business days. Free shipping on orders over $20. We are not responsible for delays caused by couriers or adverse weather conditions affecting live plants.</p>
+      <p style="margin-bottom:12px">We deliver UK-wide within 2-5 business days. Free shipping on orders over $70. We are not responsible for delays caused by couriers or adverse weather conditions affecting live plants.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">3. Our 30-Day Guarantee</h4>
       <p style="margin-bottom:12px">If your plant arrives damaged or dies within 30 days despite following our care guide, we'll replace it free of charge. Simply email a photo to <strong>hello@verdant.co</strong> within 30 days of delivery.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">4. Returns</h4>
