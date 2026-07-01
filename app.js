@@ -157,6 +157,9 @@ const state = {
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+// ── Google Sheets Webhook URL ──────────────────────────────
+const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwZD30Pd_AKv3hhLNZM1d2xZkuRlHsrQgOHg6X_xFcMfMjEosqDSIF45D4KDWF0YaFu/exec';
+
 // ── Init ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   loadState();
@@ -387,12 +390,32 @@ function renderWishlistSidebar() {
   }).join('');
 }
 
+// ── Google Sheets Integration ──────────────────────────────
+async function saveOrderToSheet(orderData) {
+  try {
+    const response = await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData)
+    });
+    console.log('Order data sent to Google Sheets:', orderData);
+    return true;
+  } catch (error) {
+    console.error('Error saving to Google Sheets:', error);
+    return false;
+  }
+}
+
 // ── Checkout ───────────────────────────────────────────────
 function initCheckout() {
   const form = document.getElementById('checkoutForm');
   if (form) {
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
+      
       const name = document.getElementById('checkFullName').value.trim();
       const phone = document.getElementById('checkPhone').value.trim();
       const email = document.getElementById('checkEmail').value.trim();
@@ -404,16 +427,57 @@ function initCheckout() {
         return;
       }
 
+      // ── Order ID Generate ──
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       let orderId = '';
       for (let i = 0; i < 8; i++) {
         orderId += chars.charAt(Math.floor(Math.random() * chars.length));
       }
       
+      // ── Order Items Format ──
+      const orderItems = state.cart.map(item => {
+        const p = products.find(pr => pr.id === item.id);
+        return {
+          id: p.id,
+          name: p.name,
+          quantity: item.qty,
+          price: p.price,
+          total: p.price * item.qty
+        };
+      });
+      
+      const subtotal = getCartTotal();
+      const FREE_SHIPPING_THRESHOLD = 70;
+      const SHIPPING_FEE = 20;
+      const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+      const grandTotal = subtotal + shipping;
+      
+      // ── Order Data for Google Sheets ──
+      const orderData = {
+        orderId: orderId,
+        timestamp: new Date().toISOString(),
+        customerName: name,
+        customerPhone: phone,
+        customerEmail: email,
+        deliveryAddress: address,
+        city: city,
+        items: orderItems,
+        subtotal: subtotal,
+        shipping: shipping,
+        grandTotal: grandTotal,
+        paymentMethod: 'Cash on Delivery',
+        status: 'Pending'
+      };
+      
+      // ── Save to Google Sheets ──
+      await saveOrderToSheet(orderData);
+      
+      // ── Show Confirmation ──
       document.getElementById('checkoutContent').style.display = 'none';
       document.getElementById('checkoutConfirmation').style.display = 'block';
       document.getElementById('orderIdDisplay').textContent = 'Order #: ' + orderId;
       
+      // ── Clear Cart ──
       state.cart = [];
       saveState();
       updateCartBadge();
@@ -454,7 +518,6 @@ function updateCheckoutSummary() {
   if (!summary) return;
   const total = getCartTotal();
   const items = state.cart.reduce((s, i) => s + i.qty, 0);
-  // ✅ FIX: Free shipping over $70, otherwise $20
   const FREE_SHIPPING_THRESHOLD = 70;
   const SHIPPING_FEE = 20;
   const shipping = total >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
@@ -795,7 +858,7 @@ function openPrivacyPolicy() {
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">Cookies</h4>
       <p style="margin-bottom:12px">We use essential cookies for cart functionality and optional analytics cookies to understand how people use our site. You can opt out of analytics cookies at any time.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">Your Rights</h4>
-      <p style="margin-bottom:12px">Under GDPR, you have the right to access, correct, or delete your personal data. Email us at <strong>privacy@verdant.co</strong> and we'll respond within 30 days.</p>
+      <p style="margin-bottom:12px">Under GDPR, you have the right to access, correct, or delete your personal data. Email us at <strong>verdantplants.pk@gmail.com</strong> and we'll respond within 30 days.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">Data Retention</h4>
       <p>We retain order data for 7 years for accounting purposes and browsing data for 24 months. You can request deletion of browsing data at any time.</p>
     </div>
@@ -811,7 +874,7 @@ function openTermsOfService() {
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">2. Delivery</h4>
       <p style="margin-bottom:12px">We deliver UK-wide within 2-5 business days. Free shipping on orders over $70. We are not responsible for delays caused by couriers or adverse weather conditions affecting live plants.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">3. Our 30-Day Guarantee</h4>
-      <p style="margin-bottom:12px">If your plant arrives damaged or dies within 30 days despite following our care guide, we'll replace it free of charge. Simply email a photo to <strong>hello@verdant.co</strong> within 30 days of delivery.</p>
+      <p style="margin-bottom:12px">If your plant arrives damaged or dies within 30 days despite following our care guide, we'll replace it free of charge. Simply email a photo to <strong>verdantplants.pk@gmail.com</strong> within 30 days of delivery.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">4. Returns</h4>
       <p style="margin-bottom:12px">Due to the perishable nature of plants, we cannot accept returns. However, our happiness guarantee covers any plant that doesn't thrive in its first 30 days.</p>
       <h4 style="color:var(--fg);margin:20px 0 8px;font-family:var(--font-display);font-size:1.2rem">5. Intellectual Property</h4>
