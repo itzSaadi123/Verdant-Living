@@ -1065,8 +1065,18 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   .cart-sidebar { width: 100%; }
   .wishlist-sidebar { width: 100%; }
   .container { padding: 0 14px; }
-  .checkout-modal { padding: 20px; max-height: 95vh; }
-  .checkout-title { font-size: 1.4rem; }
+  .checkout-modal { width: 92%; padding: 18px; max-height: 88vh; }
+  .checkout-title { font-size: 1.25rem; margin-bottom: 2px; }
+  .checkout-subtitle { font-size: .78rem; margin-bottom: 16px; }
+  .checkout-close { width: 32px; height: 32px; top: 8px; right: 8px; font-size: 1rem; }
+  .checkout-group { margin-bottom: 12px; }
+  .checkout-group label { font-size: .7rem; }
+  .checkout-input { padding: 8px 12px; font-size: .8rem; }
+  .checkout-row { gap: 10px; }
+  .checkout-summary { padding: 12px; margin: 12px 0 16px; }
+  .checkout-summary-row { font-size: .8rem; padding: 3px 0; }
+  .checkout-summary-total { font-size: 1rem; }
+  .checkout-submit { padding: 11px; font-size: .9rem; }
   
   /* Hide latin names and care on mobile */
   .product-latin { display: none; }
@@ -1144,7 +1154,10 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   .modal-details { padding: 16px; }
   .modal-name { font-size: 1.4rem; }
   .modal-price { font-size: 1.2rem; }
-  .checkout-modal { padding: 16px; }
+  .checkout-modal { width: 94%; padding: 14px; max-height: 90vh; }
+  .checkout-title { font-size: 1.1rem; }
+  .checkout-input { padding: 8px 10px; font-size: .78rem; }
+  .checkout-group { margin-bottom: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
