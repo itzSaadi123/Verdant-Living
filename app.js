@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   updateWishlistBadge();
   initScrollBehavior();
+  initCheckout();
 });
 
 function loadState() {
@@ -264,8 +265,15 @@ function getCartTotal() {
     return s + (p ? p.price * item.qty : 0);
   }, 0);
 }
-function openCart()  { $('#cartOverlay')?.classList.add('open'); renderCartSidebar(); }
-function closeCart() { $('#cartOverlay')?.classList.remove('open'); }
+function openCart()  { 
+  $('#cartOverlay')?.classList.add('open'); 
+  renderCartSidebar();
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() { 
+  $('#cartOverlay')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 function renderCartSidebar() {
   const body = $('#cartBody');
@@ -301,7 +309,7 @@ function renderCartSidebar() {
   if (foot) foot.innerHTML = `
     <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal (${state.cart.reduce((s,i)=>s+i.qty,0)} items)</span><span class="cart-subtotal-value">$${total.toFixed(2)}</span></div>
     <p class="cart-shipping-note">🌱 Free shipping on orders over $75</p>
-    <button class="btn btn-terra cart-checkout-btn" onclick="showToast('🎉 Thank you! Secure checkout coming soon.')">Checkout — $${total.toFixed(2)}</button>`;
+    <button class="btn btn-terra cart-checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>`;
 }
 
 // ── Wishlist ───────────────────────────────────────────────
@@ -357,6 +365,86 @@ function renderWishlistSidebar() {
       </div>
     </div>`;
   }).join('');
+}
+
+// ── Checkout ───────────────────────────────────────────────
+function initCheckout() {
+  const form = document.getElementById('checkoutForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('checkFullName').value.trim();
+      const phone = document.getElementById('checkPhone').value.trim();
+      const email = document.getElementById('checkEmail').value.trim();
+      const address = document.getElementById('checkAddress').value.trim();
+      const city = document.getElementById('checkCity').value.trim();
+
+      if (!name || !phone || !email || !address || !city) {
+        showToast('⚠️ Please fill in all required fields.');
+        return;
+      }
+
+      // Generate unique order ID
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let orderId = '';
+      for (let i = 0; i < 8; i++) {
+        orderId += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      
+      // Show confirmation
+      document.getElementById('checkoutContent').style.display = 'none';
+      document.getElementById('checkoutConfirmation').style.display = 'block';
+      document.getElementById('orderIdDisplay').textContent = 'Order #: ' + orderId;
+      
+      // Clear cart
+      state.cart = [];
+      saveState();
+      updateCartBadge();
+      renderCartSidebar();
+      
+      showToast('🎉 Order placed successfully! Order #' + orderId);
+    });
+  }
+}
+
+function openCheckout() {
+  if (state.cart.length === 0) {
+    showToast('🛒 Your cart is empty!');
+    return;
+  }
+  const overlay = document.getElementById('checkoutOverlay');
+  if (overlay) {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset form
+    document.getElementById('checkoutContent').style.display = 'block';
+    document.getElementById('checkoutConfirmation').style.display = 'none';
+    document.getElementById('checkoutForm').reset();
+    // Make sure COD is NOT checked by default
+    document.getElementById('cod').checked = false;
+    // Update summary
+    updateCheckoutSummary();
+  }
+}
+
+function closeCheckout() {
+  const overlay = document.getElementById('checkoutOverlay');
+  if (overlay) {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function updateCheckoutSummary() {
+  const summary = document.getElementById('checkoutSummary');
+  if (!summary) return;
+  const total = getCartTotal();
+  const items = state.cart.reduce((s, i) => s + i.qty, 0);
+  summary.innerHTML = `
+    <div class="checkout-summary-row"><span>Items (${items})</span><span>$${total.toFixed(2)}</span></div>
+    <div class="checkout-summary-row"><span>Shipping</span><span>Free</span></div>
+    <div class="checkout-summary-row checkout-summary-total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+  `;
 }
 
 // ── Toast ──────────────────────────────────────────────────
