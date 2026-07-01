@@ -195,9 +195,29 @@ function initNav() {
       toggle.setAttribute('aria-expanded', open);
     });
   }
+  // Create an initial history entry for the starting page so the very
+  // first "back" press has somewhere in-site to land on.
+  history.replaceState({ page: state.currentPage || 'home' }, '', '#' + (state.currentPage || 'home'));
+
+  // Handle browser/mobile back & forward buttons: move between in-site
+  // pages instead of leaving the site.
+  window.addEventListener('popstate', e => {
+    const page = (e.state && e.state.page) || 'home';
+    goToPage(page);
+  });
 }
 
 function navigateTo(page) {
+  // Don't push a duplicate entry if we're already on this page
+  if (state.currentPage !== page) {
+    history.pushState({ page }, '', '#' + page);
+  }
+  goToPage(page);
+}
+
+// Updates the visible page/UI without touching browser history.
+// Used both by navigateTo() and by the popstate (back/forward) handler.
+function goToPage(page) {
   state.currentPage = page;
   $$('.page').forEach(p => p.classList.remove('active'));
   const target = $(`#page-${page}`);
