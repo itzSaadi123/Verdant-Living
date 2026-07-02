@@ -416,6 +416,19 @@ function initCheckout() {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
+      // ── COD checkbox mandatory ──
+      const codCheckbox = document.getElementById('cod');
+      if (!codCheckbox.checked) {
+        showToast('⚠️ Please select Cash on Delivery as payment method.');
+        // Checkbox ko highlight karein
+        codCheckbox.style.outline = '2px solid #dc2626';
+        codCheckbox.style.outlineOffset = '2px';
+        setTimeout(() => {
+          codCheckbox.style.outline = 'none';
+        }, 3000);
+        return;
+      }
+      
       // ── Button ko disable karein (duplicate orders rokne ke liye) ──
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
